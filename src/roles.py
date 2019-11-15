@@ -7,7 +7,7 @@ ROLES = None
 
 
 # Extract Vars
-with open("../db/settings.json") as file:
+with open("db/settings.json") as file:
     data = json.load(file)
     MASTER = data["master"]
     ROLES = data["roles"]
