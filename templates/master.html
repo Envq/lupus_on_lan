@@ -25,16 +25,18 @@ var colors = {
 {% endfor %}
 };
 function change(name) {
-  console.debug(name)
-  console.debug(colors[name])
+  console.debug(name);
+  console.debug(colors[name]);
   if (colors[name] == 0) {
+    console.debug("bella");
     document.getElementById("row" + name).style.backgroundColor = 'green';
     colors[name] = 1;
-  }
+    console.debug("ciao");
+  };
   if (colors[name] == 1) {
     document.getElementById("row" + name).style.backgroundColor = 'white';
     colors[name] = 0;
-  }
+  };
 };
 function kill(name) {
   document.getElementById("row" + name).innerHTML = "";
