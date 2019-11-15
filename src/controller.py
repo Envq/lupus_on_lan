@@ -26,6 +26,7 @@ def home():
 def register():
     """Register player"""
     if request.method == "POST":
+        print(request.form.__dict__)
         name = request.form["name"]
 
         if name == MASTER_NAME:
