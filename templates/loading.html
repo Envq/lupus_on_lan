@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-3">
+  <div class="col-12">
+    <h3>Loading...</h3>
+    <p>Dai che con calma ce la fanno anche gli altri</p>
+    <form style="text-align: center;" method="POST" action="/lobby">
+      <input type="hidden" name="nome" value="{{ nome }}"><br><br>
+      <input type="submit" class="btn btn-primary" value="AGGIORNA">
+    </form>
+  </div>
+</div>
+
+{% endblock content %}
