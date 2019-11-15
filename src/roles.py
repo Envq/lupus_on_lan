@@ -1,11 +1,11 @@
 roles = {
-    "contadino" : 2,
+    "contadino" : 1,
     "lupo"      : 1,   
-    "veggente"  : 1, 
-    "mago"      : 1, 
-    "guardia"   : 1, 
-    "untore"    : 1,  
-    "massone"   : 1,  
+    "veggente"  : 0, 
+    "mago"      : 0, 
+    "guardia"   : 0, 
+    "untore"    : 0,  
+    "massone"   : 0,  
     "criceto"   : 0,  
 }
 

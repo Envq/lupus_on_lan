@@ -26,10 +26,14 @@ def home():
 def register():
     """Register player"""
     if request.method == "POST":
-        app._game.addPlayer(request.form["name"])
-        # TODO: check unique names
-    
-    return render_template("loading.html")
+        name = request.form["name"]
+
+        if name and not app._game.thereIs(name):    
+            app._game.addPlayer(request.form["name"])
+
+            return render_template("loading.html")
+
+    return render_template("home.html")
 
 
 @app.route("/lobby", methods=["POST"])
@@ -66,5 +70,5 @@ def master():
 
 # MAIN
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="192.168.1.110")
     # http://localhost:5000/

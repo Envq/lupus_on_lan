@@ -18,6 +18,10 @@ class Game:
 
     def getPlayers(self):
         return self._players
+    
+    
+    def thereIs(self, name):
+        return self._players.get(name) is not None
 
 
     def initRoles(self):
