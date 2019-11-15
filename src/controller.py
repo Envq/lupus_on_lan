@@ -1,6 +1,6 @@
 """Implementation of the controller of the game"""
 from model import Game
-from roles import MASTER_NAME
+from roles import MASTER
 
 from flask import Flask, request
 from flask.templating import render_template
@@ -28,7 +28,7 @@ def register():
     if request.method == "POST":
         name = request.form["name"]
 
-        if name == MASTER_NAME:
+        if name == MASTER:
             app._game.addMaster()
             return render_template("loading.html", name=name)
 
@@ -51,7 +51,7 @@ def lobby():
             return render_template("loading.html", name=name)
         else:
             app._game.initRoles()
-            if name == MASTER_NAME:
+            if name == MASTER:
                 return render_template("master.html", players=app._game.getPlayers())
             else:
                 role = app._game.getPlayers()[name]
