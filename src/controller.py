@@ -26,16 +26,15 @@ def home():
 def register():
     """Register player"""
     if request.method == "POST":
-        print(request.form.__dict__)
         name = request.form["name"]
 
         if name == MASTER_NAME:
             app._game.addMaster()
-            return render_template("loading.html")
+            return render_template("loading.html", name=name)
 
         if name and not app._game.thereIs(name) and not app._game.gameFull():
             app._game.addPlayer(request.form["name"])
-            return render_template("loading.html")
+            return render_template("loading.html", name=name)
 
     return render_template("home.html")
 
@@ -45,6 +44,7 @@ def lobby():
     """Loading player"""
     if request.method == "POST":
         name = request.form["name"]
+        
         if not app._game.gameFull() or not app._game.isMaster():
             return render_template("loading.html", name=name)
         else:
