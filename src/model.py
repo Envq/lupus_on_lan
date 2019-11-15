@@ -9,25 +9,25 @@ class Game:
     def __init__(self):
         self._winner = None
         self._roles = roles.getRolesList()
-        self._players = list()
-    
+        self._players = dict()
+
 
     def addPlayer(self, name):
         self._players[name] = "none"
-    
+
 
     def getPlayers(self):
         return self._players
-    
+
 
     def initRoles(self):
-        for user in self._players:
+        for user in self._players.keys():
             index = random.choice(range(len(self._roles)))
             self._players[user] = self._roles.pop(index)
-    
+
 
     def gameFull(self):
-        return len(self._players) == len(self._roles)
+        return len(self._players.keys()) == len(self._roles)
 
 
     def getRoleOf(self, user):
