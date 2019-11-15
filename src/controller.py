@@ -44,10 +44,13 @@ def lobby():
     """Loading player"""
     if request.method == "POST":
         name = request.form["name"]
-        
+        print(app._game.getPlayers())
+        print(app._game._roles)
+
         if not app._game.gameFull() or not app._game.isMaster():
             return render_template("loading.html", name=name)
         else:
+            app._game.initRoles()
             if name == MASTER_NAME:
                 return render_template("master.html", players=app._game.getPlayers())
             else:

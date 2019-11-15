@@ -11,6 +11,7 @@ class Game:
         self._roles = roles.getRolesList()
         self._players = dict()
         self._master = False
+        self._rolesGiven = False
 
 
     def addPlayer(self, name):
@@ -26,13 +27,16 @@ class Game:
 
 
     def initRoles(self):
+        if self._rolesGiven:
+            return
         for user in self._players.keys():
             index = random.choice(range(len(self._roles)))
             self._players[user] = self._roles.pop(index)
+            self._rolesGiven = True
 
 
     def gameFull(self):
-        return len(self._players.keys()) == len(self._roles)
+        return len(self._players.keys()) >= len(self._roles)
 
 
     def getRoleOf(self, user):
