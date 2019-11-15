@@ -1,5 +1,6 @@
 """Implementation of the controller of the game"""
 from model import Game
+from roles import MASTER_NAME
 
 from flask import Flask, request
 from flask.templating import render_template
@@ -18,7 +19,6 @@ app._names = list()
 @app.route("/")
 def home():
     """Home page"""
-
     return render_template("home.html")
 
 
@@ -28,9 +28,12 @@ def register():
     if request.method == "POST":
         name = request.form["name"]
 
-        if name and not app._game.thereIs(name):    
-            app._game.addPlayer(request.form["name"])
+        if name == MASTER_NAME:
+            app._game.addMaster()
+            return render_template("loading.html")
 
+        if name and not app._game.thereIs(name) and not app._game.gameFull():
+            app._game.addPlayer(request.form["name"])
             return render_template("loading.html")
 
     return render_template("home.html")
@@ -39,36 +42,19 @@ def register():
 @app.route("/lobby", methods=["POST"])
 def lobby():
     """Loading player"""
-
-    if not app._game.gameFull():
-        return render_template("loading.html", players=app._names)
-    
-    else: 
-        pass
-        # TODO: case master, player1, ...
-        # return render_template("master.html")
-        # return render_template("player.html")
-
-
-@app.route("/player", methods=["POST"])
-def player():
-    """Player page"""
     if request.method == "POST":
         name = request.form["name"]
-        role = request.form["role"]
-
-        return render_template("player.html", name = name, role = role)
-
-
-@app.route("/master", methods=["POST"])
-def master():
-    """Master page"""
-
-    return render_template("player.html", players = app._game.getPlayers())
-
+        if not app._game.gameFull() or not app._game.isMaster():
+            return render_template("loading.html", name=name)
+        else:
+            if name == MASTER_NAME:
+                return render_template("master.html", players=app._game.getPlayers())
+            else:
+                role = app._game.getPlayers()[name]
+                return render_template("player.html", name=name, role=role)
 
 
 # MAIN
 if __name__ == "__main__":
-    app.run(debug=True, host="192.168.1.110")
+    app.run(debug=True)
     # http://localhost:5000/

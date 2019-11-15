@@ -10,6 +10,7 @@ class Game:
         self._winner = None
         self._roles = roles.getRolesList()
         self._players = dict()
+        self._master = False
 
 
     def addPlayer(self, name):
@@ -18,8 +19,8 @@ class Game:
 
     def getPlayers(self):
         return self._players
-    
-    
+
+
     def thereIs(self, name):
         return self._players.get(name) is not None
 
@@ -44,3 +45,11 @@ class Game:
 
     def reset(self):
         pass
+
+
+    def addMaster(self):
+        self._master = True
+
+
+    def isMaster(self):
+        return self._master
