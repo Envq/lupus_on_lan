@@ -1,23 +1,24 @@
-MASTER_NAME = "master"
+import json
 
-roles = {
-    "contadino" : 1,
-    "lupo"      : 1,
-    "veggente"  : 0,
-    "mago"      : 0,
-    "guardia"   : 0,
-    "untore"    : 0,
-    "massone"   : 0,
-    "criceto"   : 0,
-}
+
+# Global vars
+MASTER = None
+ROLES = None
+
+
+# Extract Vars
+with open("../db/settings.json") as file:
+    data = json.load(file)
+    MASTER = data["master"]
+    ROLES = data["roles"]
 
 
 def getRolesList():
     l = list()
-    for role, num in roles.items():
+    for role, num in ROLES.items():
         for _ in range(num):
             l.append(role)
     return l
 
 def getNumOf(role):
-    return roles[role]
+    return ROLES[role]
