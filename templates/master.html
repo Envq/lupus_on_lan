@@ -25,6 +25,8 @@ var colors = {
 {% endfor %}
 };
 function change(name) {
+  console.debug(name)
+  console.debug(colors[name])
   if (colors[name] == 0) {
     document.getElementById("row" + name).style.backgroundColor = 'green';
     colors[name] = 1;
