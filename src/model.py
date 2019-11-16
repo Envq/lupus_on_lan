@@ -42,7 +42,7 @@ class Game:
 
 
     def getPlayersSimilarTo(self, user):
-        target = roles.getRolesVisible()
+        target = roles.getRolesVisibleForSimiliars()
         players = list()
         for player, role in self._players.items():
             if role in target and player != user:

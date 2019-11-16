@@ -18,7 +18,7 @@ def getRolesList():
     return l
 
 
-def getRolesVisible():
+def getRolesVisibleForSimiliars():
     return ROLES_VISIBLE_FOR_SIMILARS
 
 
