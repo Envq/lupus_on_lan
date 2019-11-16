@@ -1,24 +1,6 @@
 {
     "master": "master",
     "roles": {
-        "contadino": {
-            "num": 1,
-            "faction": "Buoni",
-            "description": "Non fa niente :)",
-            "image": "/images/contadino.jpg"
-        },
-        "lupo": {
-            "num": 1,
-            "faction": "Cattivi",
-            "description": "Decide con gli altri lupi un qualsiasi personaggio da uccidere",
-            "image": "/images/lupo.jpg"
-        },
-        "veggente": {
-            "num": 0,
-            "faction": "Buoni",
-            "description": "Chiede al master la fazione di un giocatore (il criceto, se scelto, viene visto buono ma muore istantaneamente)",
-            "image": "/images/veggente.jpg"
-        },
         "mago": {
             "num": 0,
             "faction": "Buoni",
@@ -31,11 +13,29 @@
             "description": "Indica un giocatore; questi è immune dall'attacco dei lupi durante la notte corrente",
             "image": "/images/guardia.jpg"
         },
+        "veggente": {
+            "num": 0,
+            "faction": "Buoni",
+            "description": "Chiede al master la fazione di un giocatore (il criceto, se scelto, viene visto buono ma muore istantaneamente)",
+            "image": "/images/veggente.jpg"
+        },
         "untore": {
             "num": 0,
             "faction": "Cattivi",
             "description": "Unge un giocatore",
             "image": "/images/untore.jpg"
+        },
+        "lupo": {
+            "num": 1,
+            "faction": "Cattivi",
+            "description": "Decide con gli altri lupi un qualsiasi personaggio da uccidere",
+            "image": "/images/lupo.jpg"
+        },
+        "contadino": {
+            "num": 1,
+            "faction": "Buoni",
+            "description": "Non fa niente :)",
+            "image": "/images/contadino.jpg"
         },
         "massone": {
             "num": 0,
@@ -55,12 +55,5 @@
         "guardia": "#f7ffa3",
         "untore": "#a3ffb1",
         "lupo": "#ffa3a3"
-    },
-    "order": [
-        "mago",
-        "guardia",
-        "veggente",
-        "untore",
-        "lupo"
-    ]
+    }
 }
