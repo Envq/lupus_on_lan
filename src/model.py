@@ -6,7 +6,8 @@ from collections import OrderedDict
 
 # Global Vars
 MASTER = DM.getMaster()
-COLORS = DM.getMaster()
+COLORS = DM.getColors()
+
 
 
 class Game:

@@ -8,7 +8,7 @@ from flask.templating import render_template
 # INITIALIZATION FLASK
 app = Flask("virtual-lupus Game",
             static_url_path='/images',
-            static_folder='images',)
+            static_folder='images')
 
 # INITIALIZATION CONTROLLER
 app._game = Game()
@@ -71,7 +71,3 @@ def lobby():
                                        others=app._game.getPlayersSimilarTo(
                                            user),
                                        description=description)
-
-
-if __name__ == "__main__":
-    app.run(debug=True, host=app._game.getIp(), port=app._game.getPort())
