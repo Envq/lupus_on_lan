@@ -1,6 +1,7 @@
 """Implementation of the Game"""
 import random
 import roles
+from collections import OrderedDict
 
 
 class Game:
@@ -9,13 +10,14 @@ class Game:
     def __init__(self):
         self._winner = None
         self._roles = roles.getRolesList()
-        self._players = dict()
+        self._players = OrderedDict()
+        self._prePlayers = list()
         self._master = False
         self._rolesGiven = False
 
 
     def addPlayer(self, name):
-        self._players[name] = "none"
+        self._prePlayers.append(name)
 
 
     def getPlayers(self):
@@ -23,7 +25,7 @@ class Game:
 
 
     def thereIs(self, name):
-        for player in self._players.keys():
+        for player in self._prePlayers:
             if player.lower() == name.lower():
                 return True
         return False
@@ -32,16 +34,15 @@ class Game:
     def initRoles(self):
         if self._rolesGiven:
             return
-        for user in self._players.keys():
-            index = random.choice(range(len(self._roles)))
-            self._players[user] = self._roles.pop(index)
-            self._rolesGiven = True
-                # sort the players for the 
-        self._players = roles.sort(self._players)
+        for role in self._roles:
+            index = random.choice(range(len(self._prePlayers)))
+            player = self._prePlayers.pop(index)
+            self._players[player] = role
+        self._rolesGiven = True
 
 
     def gameFull(self):
-        return len(self._players.keys()) >= len(self._roles)
+        return len(self._prePlayers) == len(self._roles) or self._rolesGiven
 
 
     def getRoleOf(self, user):
