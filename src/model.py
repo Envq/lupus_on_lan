@@ -41,6 +41,14 @@ class Game:
         self._rolesGiven = True
 
 
+    def getPlayersSimilarTo(self, user):
+        target = roles.getRolesVisible()
+        players = list()
+        for player, role in self._players.items():
+            if role in target and player != user:
+                players.append(player)
+
+
     def gameFull(self):
         return len(self._prePlayers) == len(self._roles) or self._rolesGiven
 

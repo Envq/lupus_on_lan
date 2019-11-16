@@ -29,11 +29,13 @@ def register():
 
         if user == MASTER:
             app._game.addMaster()
-            return render_template("loading.html", userId=user)
+            return render_template("loading.html",
+                                   userId=user)
 
         if user and not app._game.thereIs(user) and not app._game.gameFull():
             app._game.addPlayer(request.form["userId"])
-            return render_template("loading.html", userId=user)
+            return render_template("loading.html",
+                                   userId=user)
 
     return render_template("home.html")
 
@@ -45,20 +47,28 @@ def lobby():
         user = request.form["userId"]
 
         if not app._game.gameFull() or not app._game.isMaster():
-            return render_template("loading.html", userId=user, players=app._game.getPlayers())
+            return render_template("loading.html",
+                                   userId=user,
+                                   players=app._game.getPlayers())
 
         else:
             app._game.initRoles()
             if user == MASTER:
-                return render_template("master.html", players=app._game.getPlayers(),
+                return render_template("master.html",
+                                       players=app._game.getPlayers(),
                                        colors=COLORS)
 
             else:
                 role = app._game.getPlayers()[user]
                 description = app._game.getDescriptionOf(role)
                 faction = app._game.getFactionOf(role)
-                return render_template("player.html", userId=user, role=role,
-                                    description=description, faction=faction)
+                return render_template("player.html",
+                                       userId=user,
+                                       faction=faction,
+                                       role=role,
+                                       others=app._game.getPlayersSimilarTo(
+                                           user),
+                                       description=description)
 
 
 # MAIN

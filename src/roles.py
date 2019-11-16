@@ -6,6 +6,7 @@ with open("db/settings.json") as file:
     MASTER = data["master"]
     ROLES = data["roles"]
     COLORS = data["colors"]
+    VISIBLE = data["visible"]
 
 
 def getRolesList():
@@ -14,6 +15,10 @@ def getRolesList():
         for _ in range(info["num"]):
             l.append(role)
     return l
+
+
+def getRolesVisible():
+    return VISIBLE
 
 
 def getNumOf(role):
