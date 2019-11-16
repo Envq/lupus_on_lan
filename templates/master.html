@@ -6,41 +6,44 @@
 </div>
 {% for name, role in players.items() %}
   <div class="row justify-content-center" id="row{{ name }}">
-    <div class="col-5" onClick="change('{{ name }}')">
+    <div class="col-5" onClick="change{{ name }}()">
       <p class="my-2">{{ name }}</p>
     </div>
-    <div class="col-5" onClick="change('{{ name }}')">
+    <div class="col-5" onClick="change{{ name }}()">
       <p class="my-2">{{ role }}</p>
     </div>
-    <div class="col-2" onClick="kill('{{ name }}')">
+    <div class="col-2" onClick="kill{{ name }}()">
       <p class="my-2">X</p>
     </div>
   </div>
-{% endfor %}
-
-<script>
-var colors = {
-{% for name, role in players.items() %}
-  "{{ name }}": 0,
-{% endfor %}
-};
-function change(name) {
-  console.debug(name);
-  console.debug(colors[name]);
-  if (colors[name] == 0) {
-    console.debug("bella");
-    document.getElementById("row" + name).style.backgroundColor = 'green';
-    colors[name] = 1;
-    console.debug("ciao");
+  <script>
+  var color{{ name }} = 0;
+  function change{{ name }}() {
+    if (window.color{{ name }} == 0) {
+      document.getElementById("row{{ name }}").style.backgroundColor = '{{ colors.mago }}';
+      window.color{{ name }} = 1;
+    }
+    else if (window.color{{ name }} == 1) {
+      document.getElementById("row{{ name }}").style.backgroundColor = '{{ colors.guardia }}';
+      window.color{{ name }} = 2;
+    }
+    else if (window.color{{ name }} == 2) {
+      document.getElementById("row{{ name }}").style.backgroundColor = '{{ colors.untore }}';
+      window.color{{ name }} = 3;
+    }
+    else if (window.color{{ name }} == 3) {
+      document.getElementById("row{{ name }}").style.backgroundColor = '{{ colors.lupo }}';
+      window.color{{ name }} = 4;
+    }
+    else if (window.color{{ name }} == 4) {
+      document.getElementById("row{{ name }}").style.backgroundColor = 'white';
+      window.color{{ name }} = 0;
+    };
   };
-  if (colors[name] == 1) {
-    document.getElementById("row" + name).style.backgroundColor = 'white';
-    colors[name] = 0;
+  function kill{{ name }}() {
+    document.getElementById("row{{ name }}").innerHTML = "";
   };
-};
-function kill(name) {
-  document.getElementById("row" + name).innerHTML = "";
-};
-</script>
+  </script>
+{% endfor %}
 
 {% endblock content %}
