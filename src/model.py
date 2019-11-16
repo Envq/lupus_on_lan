@@ -45,15 +45,14 @@ class Game:
             player = self._prePlayers.pop(index)
             self._players[player] = role
         self._rolesGiven = True
-
+    
 
     def getPlayersSimilarTo(self, user, role):
-        if role not in DM.getRolesVisibleForSimiliars():
-            return []
         players = list()
-        for player, prole in self._players.items():
-            if prole == role and player != user:
-                players.append(player)
+        if role in DM.getRolesVisibleForSimiliars():
+            for p, r in self._players.items():
+                if r == role and p != user:
+                    players.append(p)
         return players
 
 
