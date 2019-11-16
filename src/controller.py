@@ -1,6 +1,5 @@
 """Implementation of the controller of the game"""
-from model import Game
-from roles import MASTER, COLORS
+from model import Game, MASTER, COLORS
 
 from flask import Flask, request
 from flask.templating import render_template
@@ -66,12 +65,11 @@ def lobby():
                                        userId=user,
                                        faction=faction,
                                        role=role,
+                                       image=app._game.getImageOf(role),
                                        others=app._game.getPlayersSimilarTo(
                                            user),
                                        description=description)
 
 
-# MAIN
 if __name__ == "__main__":
     app.run(debug=True)
-    # http://localhost:5000/

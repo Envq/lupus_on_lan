@@ -1,4 +1,5 @@
 {
+    "ip": "",
     "master": "master",
     "roles": {
         "mago": {

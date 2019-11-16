@@ -1,7 +1,12 @@
 """Implementation of the Game"""
 import random
-import roles
+import data_manager as DM
 from collections import OrderedDict
+
+
+# Global Vars
+MASTER = DM.getMaster()
+COLORS = DM.getMaster()
 
 
 class Game:
@@ -9,7 +14,7 @@ class Game:
 
     def __init__(self):
         self._winner = None
-        self._roles = roles.getRolesList()
+        self._roles = DM.getRolesList()
         self._players = OrderedDict()
         self._prePlayers = list()
         self._master = False
@@ -42,7 +47,7 @@ class Game:
 
 
     def getPlayersSimilarTo(self, user):
-        target = roles.getRolesVisibleForSimiliars()
+        target = DM.getRolesVisibleForSimiliars()
         players = list()
         for player, role in self._players.items():
             if role in target and player != user:
@@ -57,16 +62,23 @@ class Game:
         return self._players[user]
 
 
+    def getImageOf(self, role):
+        return DM.getImageOf(role)
+
+
     def getDescriptionOf(self, role):
-        return roles.getDescriptionOf(role)
+        return DM.getDescriptionOf(role)
 
 
     def getFactionOf(self, role):
-        return roles.getFactionOf(role)
+        return DM.getFactionOf(role)
 
 
     def getRoleNum(self, role):
-        return roles.getNumOf(role)
+        return DM.getNumOf(role)
+    
+    def getIp(self):
+        return DM.getIp()
 
 
     def reset(self):
@@ -79,3 +91,4 @@ class Game:
 
     def isMaster(self):
         return self._master
+
