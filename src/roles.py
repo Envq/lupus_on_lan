@@ -4,6 +4,7 @@ import json
 # Global vars
 MASTER = None
 ROLES = None
+COLORS = {'mago': '#a3d1ff', 'guardia': '#f7ffa3', 'untore': '#a3ffb1', 'lupo': '#ffa3a3'}
 
 with open("db/settings.json") as file:
     data = json.load(file)

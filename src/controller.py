@@ -1,13 +1,11 @@
 """Implementation of the controller of the game"""
 from model import Game
-from roles import MASTER
+from roles import MASTER, COLORS
 
 from flask import Flask, request
 from flask.templating import render_template
 
 
-# TODO da spostare in roles
-COLORS = {'mago': '#a3d1ff', 'guardia': '#f7ffa3', 'untore': '#a3ffb1', 'lupo': '#ffa3a3'}
 
 
 # INITIALIZATION FLASK
