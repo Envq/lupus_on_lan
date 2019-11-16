@@ -56,7 +56,9 @@ def lobby():
             else:
                 role = app._game.getPlayers()[user]
                 description = app._game.getDescriptionOf(role)
-                return render_template("player.html", userId=user, role=role, description=description)
+                faction = app._game.getFactionOf(role)
+                return render_template("player.html", userId=user, role=role,
+                                    description=description, faction=faction)
 
 
 # MAIN
