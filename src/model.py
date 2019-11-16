@@ -23,7 +23,10 @@ class Game:
 
 
     def thereIs(self, name):
-        return self._players.get(name) is not None
+        for player in self._players.keys():
+            if player.lower() == name.lower():
+                return True
+        return False
 
 
     def initRoles(self):

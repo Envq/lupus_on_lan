@@ -3,50 +3,50 @@
     "roles": {
         "contadino": {
             "num": 1,
-            "faction": "buoni",
-            "description": "Non deve farsi mangiare dai lupi",
+            "faction": "Buoni",
+            "description": "Non fa niente :)",
             "image": "/images/contadino.jpg"
         },
         "lupo": {
             "num": 1,
-            "faction": "cattivi",
-            "description": "Decide con gli altri lupi chi mangiare",
+            "faction": "Cattivi",
+            "description": "Decide con gli altri lupi un qualsiasi personaggio da uccidere",
             "image": "/images/lupo.jpg"
         },
         "veggente": {
             "num": 0,
-            "faction": "buoni",
-            "description": "Chiede al master la fazione di un giocatore",
+            "faction": "Buoni",
+            "description": "Chiede al master la fazione di un giocatore (il criceto, se scelto, viene visto buono ma muore istantaneamente)",
             "image": "/images/veggente.jpg"
         },
         "mago": {
             "num": 0,
             "faction": "Buoni",
-            "description": "Riflette le azioni che si verificheranno su un giocatore",
+            "description": "Indica un giocatore; qualsiasi azione effettuata che bersaglia il giocatore scelto viene riflessa a colui che la esegue",
             "image": "/images/mago.jpg"
         },
         "guardia": {
             "num": 0,
             "faction": "Buoni",
-            "description": "Protegge un giocatore dall'attacco dei lupi",
+            "description": "Indica un giocatore; questi è immune dall'attacco dei lupi durante la notte corrente",
             "image": "/images/guardia.jpg"
         },
         "untore": {
             "num": 0,
-            "faction": "Boh",
-            "description": "Non mi ricordo",
+            "faction": "Cattivi",
+            "description": "Unge un giocatore",
             "image": "/images/untore.jpg"
         },
         "massone": {
             "num": 0,
-            "faction": "Boh",
-            "description": "Non mi ricordo",
+            "faction": "Buoni",
+            "description": "Non fa nulla salvo conoscere l'identità degli altri massoni",
             "image": "/images/massone.jpg"
         },
         "criceto": {
             "num": 0,
-            "faction": "Boh",
-            "description": "Non mi ricordo",
+            "faction": "Neutro",
+            "description": "Non fa nulla. Se alla fine del gioco tutti i lupi vengono eliminati, stermina automaticamente tutti i buoni e vince lui. Muore se indicato dal veggente, non può essere ucciso dai lupi, può essere ucciso al rogo",
             "image": "/images/criceto.jpg"
         }
     }
