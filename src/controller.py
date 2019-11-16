@@ -69,5 +69,5 @@ def lobby():
                                        role=role,
                                        image=app._game.getImageOf(role),
                                        others=app._game.getPlayersSimilarTo(
-                                           user),
+                                           user, role),
                                        description=description)

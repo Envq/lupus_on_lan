@@ -39,14 +39,14 @@
             "image": "/images/lupo.jpg"
         },
         "contadino": {
-            "num": 1,
+            "num": 0,
             "faction": "Buono",
             "visibleForSimilars": false,
             "description": "Non fa niente lol",
             "image": "/images/contadino.jpg"
         },
         "massone": {
-            "num": 0,
+            "num": 2,
             "faction": "Buono",
             "visibleForSimilars": true,
             "description": "Non fa nulla salvo conoscere l'identità degli altri massoni",

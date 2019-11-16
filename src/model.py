@@ -47,12 +47,14 @@ class Game:
         self._rolesGiven = True
 
 
-    def getPlayersSimilarTo(self, user):
-        target = DM.getRolesVisibleForSimiliars()
+    def getPlayersSimilarTo(self, user, role):
+        if role not in DM.getRolesVisibleForSimiliars():
+            return []
         players = list()
-        for player, role in self._players.items():
-            if role in target and player != user:
+        for player, prole in self._players.items():
+            if prole == role and player != user:
                 players.append(player)
+        return players
 
 
     def gameFull(self):
@@ -77,11 +79,11 @@ class Game:
 
     def getRoleNum(self, role):
         return DM.getNumOf(role)
-    
+
 
     def getIp(self):
         return DM.getIp()
-    
+
 
     def getPort(self):
         return DM.getPort()
@@ -97,4 +99,3 @@ class Game:
 
     def isMaster(self):
         return self._master
-
