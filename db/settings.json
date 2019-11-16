@@ -1,12 +1,53 @@
 {
     "master": "master",
     "roles": {
-             "contadino" : 1 ,
-             "lupo"      : 1 ,
-             "veggente"  : 0 ,
-             "mago"      : 0 ,
-             "guardia"   : 0 ,
-             "untore"    : 0 ,
-             "massone"   : 0 ,
-             "criceto"   : 0 }
+        "contadino": {
+            "num": 1,
+            "faction": "buoni",
+            "description": "Non deve farsi mangiare dai lupi",
+            "image": "/images/contadino.jpg"
+        },
+        "lupo": {
+            "num": 1,
+            "faction": "cattivi",
+            "description": "Decide con gli altri lupi chi mangiare",
+            "image": "/images/lupo.jpg"
+        },
+        "veggente": {
+            "num": 0,
+            "faction": "buoni",
+            "description": "Chiede al master la fazione di un giocatore",
+            "image": "/images/veggente.jpg"
+        },
+        "mago": {
+            "num": 0,
+            "faction": "Buoni",
+            "description": "Riflette le azioni che si verificheranno su un giocatore",
+            "image": "/images/mago.jpg"
+        },
+        "guardia": {
+            "num": 0,
+            "faction": "Buoni",
+            "description": "Protegge un giocatore dall'attacco dei lupi",
+            "image": "/images/guardia.jpg"
+        },
+        "untore": {
+            "num": 0,
+            "faction": "Boh",
+            "description": "Non mi ricordo",
+            "image": "/images/untore.jpg"
+        },
+        "massone": {
+            "num": 0,
+            "faction": "Boh",
+            "description": "Non mi ricordo",
+            "image": "/images/massone.jpg"
+        },
+        "criceto": {
+            "num": 0,
+            "faction": "Boh",
+            "description": "Non mi ricordo",
+            "image": "/images/criceto.jpg"
+        }
+    }
 }
