@@ -6,6 +6,9 @@
   <div class="col-12" style="text-align: center">
     <h3>{{ userId }}</h3>
     <h4>{{ faction }}: {{ role }}</h4>
+    {% if others %}
+      <h4>con: {% for elem in others %}{{ elem }}, {% endfor %}</h4>
+    {% endif %}
     <p>{{ description }}</p>
   </div>
 </div>
