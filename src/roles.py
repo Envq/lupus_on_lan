@@ -6,7 +6,8 @@ with open("db/settings.json") as file:
     MASTER = data["master"]
     ROLES = data["roles"]
     COLORS = data["colors"]
-    VISIBLE = data["visible"]
+    ROLES_VISIBLE_FOR_SIMILARS = [
+        role for role, info in ROLES.items() if info["visibleForSimilars"]]
 
 
 def getRolesList():
@@ -18,7 +19,7 @@ def getRolesList():
 
 
 def getRolesVisible():
-    return VISIBLE
+    return ROLES_VISIBLE_FOR_SIMILARS
 
 
 def getNumOf(role):
