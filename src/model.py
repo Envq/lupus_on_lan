@@ -42,6 +42,9 @@ class Game:
     def getRoleOf(self, user):
         return self._players[user]
 
+    def getDescriptionOf(self, role):
+        return roles.getDescriptionOf(role)
+
 
     def getRoleNum(self, role):
         return roles.getNumOf(role)

@@ -6,8 +6,6 @@ from flask import Flask, request
 from flask.templating import render_template
 
 
-
-
 # INITIALIZATION FLASK
 app = Flask("virtual-lupus Game")
 
@@ -53,11 +51,12 @@ def lobby():
             app._game.initRoles()
             if user == MASTER:
                 return render_template("master.html", players=app._game.getPlayers(),
-                                                      colors=COLORS)
+                                       colors=COLORS)
 
             else:
                 role = app._game.getPlayers()[user]
-                return render_template("player.html", userId=user, role=role)
+                description = app._game.getDescriptionOf(role)
+                return render_template("player.html", userId=user, role=role, description=description)
 
 
 # MAIN
