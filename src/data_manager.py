@@ -21,17 +21,13 @@ def getRolesList():
 
 
 def getIp():
-    if IP:
-        return IP
-    else:
-        return "localhost"
+    # Default is "localhost"
+    return IP
 
 
 def getPort():
-    if PORT:
-        return PORT
-    else:
-        return 5000
+    # Default is 5000
+    return PORT
 
 
 def getMaster():
