@@ -36,6 +36,8 @@ class Game:
             index = random.choice(range(len(self._roles)))
             self._players[user] = self._roles.pop(index)
             self._rolesGiven = True
+                # sort the players for the 
+        self._players = roles.sort(self._players)
 
 
     def gameFull(self):
