@@ -6,7 +6,9 @@ from flask.templating import render_template
 
 
 # INITIALIZATION FLASK
-app = Flask("virtual-lupus Game")
+app = Flask("virtual-lupus Game",
+            static_url_path='/images',
+            static_folder='images',)
 
 # INITIALIZATION CONTROLLER
 app._game = Game()
