@@ -1,15 +1,17 @@
 import json
 
-
-# Global vars
-MASTER = None
-ROLES = None
-COLORS = {'mago': '#a3d1ff', 'guardia': '#f7ffa3', 'untore': '#a3ffb1', 'lupo': '#ffa3a3'}
-
+# Vars
 with open("db/settings.json") as file:
     data = json.load(file)
     MASTER = data["master"]
     ROLES = data["roles"]
+    COLORS = data["colors"]
+    ORDER = data["order"]
+
+
+def sort(players):
+    # TODO sort players by ORDER
+    return players
 
 
 def getRolesList():
