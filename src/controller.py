@@ -72,4 +72,4 @@ def lobby():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host=app._game.getIp(), port=app._game.getPort())

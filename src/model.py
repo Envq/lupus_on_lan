@@ -77,8 +77,13 @@ class Game:
     def getRoleNum(self, role):
         return DM.getNumOf(role)
     
+
     def getIp(self):
         return DM.getIp()
+    
+
+    def getPort(self):
+        return DM.getPort()
 
 
     def reset(self):

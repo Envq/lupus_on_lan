@@ -1,5 +1,6 @@
 {
-    "ip": "",
+    "ip": "localhost",
+    "port": "5000",
     "master": "master",
     "roles": {
         "mago": {

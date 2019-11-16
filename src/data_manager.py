@@ -5,6 +5,7 @@ with open("db/settings.json") as file:
     data = json.load(file)
     MASTER = data["master"]
     IP = data["ip"]
+    PORT = data["port"]
     ROLES = data["roles"]
     COLORS = data["colors"]
     ROLES_VISIBLE_FOR_SIMILARS = [
@@ -23,7 +24,14 @@ def getIp():
     if IP:
         return IP
     else:
-        return "http://localhost:5000/"
+        return "localhost"
+
+
+def getPort():
+    if PORT:
+        return PORT
+    else:
+        return 5000
 
 
 def getMaster():
