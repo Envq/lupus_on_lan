@@ -29,7 +29,8 @@ def register():
         user = request.form["userId"]
         if app.game.addPlayer(user):
             return render_template("loading.html",
-                                   userId=user)
+                                   userId=user,
+                                   players = app.game.getPlayersName())
     return render_template("home.html")
 
 
