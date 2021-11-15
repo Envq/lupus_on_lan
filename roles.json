@@ -1,0 +1,58 @@
+{
+    "lupo": {
+        "num": 2,
+        "faction": "Cattivo",
+        "isVisibleForSimilars": true,
+        "description": "Decide con gli altri lupi un qualsiasi personaggio da uccidere",
+        "image": "default/lupo.jpg"
+    },
+    "contadino": {
+        "num": 1,
+        "faction": "Buono",
+        "isVisibleForSimilars": false,
+        "description": "Non fa niente lol",
+        "image": "default/contadino.jpg"
+    },
+    "guardia": {
+        "num": 0,
+        "faction": "Buono",
+        "isVisibleForSimilars": false,
+        "description": "Indica un giocatore; questi è immune dall'attacco dei lupi durante la notte corrente",
+        "image": "default/guardia.jpg"
+    },
+    "veggente": {
+        "num": 0,
+        "faction": "Buono",
+        "isVisibleForSimilars": false,
+        "description": "Chiede al master la fazione di un giocatore (il criceto, se scelto, viene visto buono ma muore istantaneamente)",
+        "image": "default/veggente.jpg"
+    },
+    "massone": {
+        "num": 0,
+        "faction": "Buono",
+        "isVisibleForSimilars": true,
+        "description": "Non fa nulla salvo conoscere l'identità degli altri massoni",
+        "image": "default/massone.jpg"
+    },
+    "mago": {
+        "num": 0,
+        "faction": "Buono",
+        "isVisibleForSimilars": false,
+        "description": "Indica un giocatore; qualsiasi azione effettuata che bersaglia il giocatore scelto viene riflessa a colui che la esegue",
+        "image": "default/mago.jpg"
+    },
+    "untore": {
+        "num": 0,
+        "faction": "Cattivo",
+        "isVisibleForSimilars": false,
+        "description": "Unge un giocatore",
+        "image": "default/untore.jpg"
+    },
+    "criceto": {
+        "num": 0,
+        "faction": "Neutro",
+        "isVisibleForSimilars": false,
+        "description": "Non fa nulla. Se alla fine del gioco tutti i lupi vengono eliminati, stermina automaticamente tutti i Buono e vince lui. Muore se indicato dal veggente, non può essere ucciso dai lupi, può essere ucciso al rogo",
+        "image": "default/criceto.jpg"
+    }
+}

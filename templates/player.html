@@ -6,11 +6,11 @@
   <div class="col-12" style="text-align: center">
     <h3>{{ userId }}</h3>
     <h4>{{ faction }}: {{ role }}</h4>
-    {% if others %}
-      <h4>con: {% for elem in others %}{{ elem }}, {% endfor %}</h4>
+    {% if playersSimilar %}
+      <h4>con: {% for e in playersSimilar %}{{ e }}, {% endfor %}</h4>
     {% endif %}
     <p>{{ description }}</p>
-    <img src={{ image }}>
+    <img src={{ imagePath }}>
   </div>
 </div>
 

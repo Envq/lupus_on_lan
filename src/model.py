@@ -1,100 +1,112 @@
-"""Implementation of the Game"""
+#!/usr/bin/env python3
 import random
-import data_manager as DM
-from collections import OrderedDict
-
-
-# Global Vars
-MASTER = DM.getMaster()
-COLORS = DM.getColors()
-
+from data_manager import DataManager
 
 
 class Game:
-    """The Lupus game"""
-
     def __init__(self):
-        self._winner = None
-        self._roles = DM.getRolesList()
-        self._players = OrderedDict()
-        self._prePlayers = list()
-        self._master = False
-        self._rolesGiven = False
+        self.state = 'init'
+        self.dataManager = DataManager()
+        self.winner = None
+        self.numPlayers = 0
+        self.players = dict()
+        self.roles = self.dataManager.getRolesAvailables()
+        self.state = 'waitForPlayers'
+
+    
+    def isStart(self):
+        return self.state == 'start'
 
 
     def addPlayer(self, name):
-        self._prePlayers.append(name)
+        # check if the state is valid
+        if self.state != 'waitForPlayers':
+            return False
+        # check if the name is valid
+        if name == None or name == '' or name.lower() in [p.lower() for p in self.players.keys()]:
+            return False
+        # add player
+        self.players[name] = self.roles[self.numPlayers]
+        self.numPlayers += 1
+        # check status
+        if self.numPlayers == len(self.roles):
+            tmp = list(self.players.items())
+            random.shuffle(tmp)
+            self.players = dict(tmp)
+            self.state = 'start'
+        return True
 
 
-    def getPlayers(self):
-        return self._players
+    def getPlayersName(self):
+        return list(self.players.keys())
 
 
-    def thereIs(self, name):
-        for player in self._prePlayers:
-            if player.lower() == name.lower():
-                return True
-        return False
+    def getPlayersSimilarTo(self, playerName):
+        playersSimilar = list()
+        playerRole = self.players[playerName]
+        if self.dataManager.isVisibleForSimilars(playerRole):
+            for p, r in self.players.items():
+                if r == playerRole and p != playerName:
+                    playersSimilar.append(p)
+        return playersSimilar
 
 
-    def initRoles(self):
-        if self._rolesGiven:
-            return
-        for role in self._roles:
-            index = random.choice(range(len(self._prePlayers)))
-            player = self._prePlayers.pop(index)
-            self._players[player] = role
-        self._rolesGiven = True
-    
-
-    def getPlayersSimilarTo(self, user, role):
-        players = list()
-        if role in DM.getRolesVisibleForSimiliars():
-            for p, r in self._players.items():
-                if r == role and p != user:
-                    players.append(p)
-        return players
+    def getRoleOf(self, playerName):
+        return self.players[playerName]
 
 
-    def gameFull(self):
-        return len(self._prePlayers) == len(self._roles) or self._rolesGiven
-
-
-    def getRoleOf(self, user):
-        return self._players[user]
-
-
-    def getImageOf(self, role):
-        return DM.getImageOf(role)
-
-
-    def getDescriptionOf(self, role):
-        return DM.getDescriptionOf(role)
+    def getNumOf(self, role):
+        return self.dataManager.getNumOf(role)
 
 
     def getFactionOf(self, role):
-        return DM.getFactionOf(role)
+        return self.dataManager.getFactionOf(role)
 
 
-    def getRoleNum(self, role):
-        return DM.getNumOf(role)
+    def getDescriptionOf(self, role):
+        return self.dataManager.getDescriptionOf(role)
 
 
-    def getIp(self):
-        return DM.getIp()
+    def getImagePathOf(self, role):
+        return self.dataManager.getImagePathOf(role)
 
 
-    def getPort(self):
-        return DM.getPort()
 
+# TESTS
+if __name__ == "__main__":
+    g = Game()
 
-    def reset(self):
-        pass
+    # WAIT FOR PLAYERS
+    assert not g.isStart()
+    assert g.state == 'waitForPlayers'
+    assert g.roles == ['lupo', 'lupo']
+    assert g.players == {}
 
+    res = g.addPlayer('a')
+    assert res
+    assert g.state == 'waitForPlayers'
+    assert g.players == {'a':'lupo'}
 
-    def addMaster(self):
-        self._master = True
+    res = g.addPlayer('a')
+    assert not res
+    assert g.state == 'waitForPlayers'
+    assert g.players == {'a':'lupo'}
 
+    res = g.addPlayer('b')
+    assert res
+    assert g.state == 'start'
+    assert g.players == {'a':'lupo', 'b':'lupo'}
+    assert g.isStart()
 
-    def isMaster(self):
-        return self._master
+    res = g.addPlayer('b')
+    assert not res
+    assert g.state == 'start'
+    assert g.players == {'a':'lupo', 'b':'lupo'}
+
+    # METHODS
+    assert g.getPlayersName() == ['a', 'b'] or g.getPlayersName() == ['b', 'a']
+    assert g.getPlayersSimilarTo('a') == ['b']
+    assert g.getPlayersSimilarTo('b') == ['a']
+    assert g.getRoleOf('a') == 'lupo'
+
+    print("OK all is correct")

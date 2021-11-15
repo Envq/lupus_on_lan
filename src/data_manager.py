@@ -1,58 +1,57 @@
+#!/usr/bin/env python3
 import json
 
-# Vars
-with open("db/settings.json") as file:
-    data = json.load(file)
-    MASTER = data["master"]
-    IP = data["ip"]
-    PORT = data["port"]
-    ROLES = data["roles"]
-    COLORS = data["colors"]
-    ROLES_VISIBLE_FOR_SIMILARS = [
-        role for role, info in ROLES.items() if info["visibleForSimilars"]]
+
+class DataManager:
+    def __init__(self, settings_path = 'roles.json'):
+        # load rolesData
+        with open(settings_path) as file:
+            self.rolesData = json.load(file)
+        # Preprocessing
+        self.rolesAvailables = list()
+        self.rolesVisibleForSimilars = list()
+        for role, info in self.rolesData.items():
+            for _ in range(info["num"]):
+                self.rolesAvailables.append(role)
+            if info['isVisibleForSimilars']:
+                self.rolesVisibleForSimilars.append(role)
 
 
-def getRolesList():
-    l = list()
-    for role, info in ROLES.items():
-        for _ in range(info["num"]):
-            l.append(role)
-    return l
+    def getRolesAvailables(self):
+        return self.rolesAvailables
 
 
-def getIp():
-    # Default is "localhost"
-    return IP
+    def getNumOf(self, role):
+        return self.rolesData[role]['num']
 
 
-def getPort():
-    # Default is 5000
-    return PORT
+    def getFactionOf(self, role):
+        return self.rolesData[role]["faction"]
 
 
-def getMaster():
-    return MASTER
+    def isVisibleForSimilars(self, role):
+        return self.rolesData[role]["isVisibleForSimilars"]
 
 
-def getColors():
-    return COLORS
+    def getDescriptionOf(self, role):
+        return self.rolesData[role]["description"]
 
 
-def getRolesVisibleForSimiliars():
-    return ROLES_VISIBLE_FOR_SIMILARS
+    def getImagePathOf(self, role):
+        return 'images/' + self.rolesData[role]['image']
 
 
-def getNumOf(role):
-    return ROLES[role]["num"]
 
+# TESTS
+if __name__ == "__main__":
+    dm = DataManager(settings_path="roles.json")
 
-def getDescriptionOf(role):
-    return ROLES[role]["description"]
+    role = 'lupo'
+    assert dm.getRolesAvailables() == ['lupo', 'lupo']
+    assert dm.getNumOf(role) == 2
+    assert dm.getFactionOf(role) == 'Cattivo'
+    assert dm.isVisibleForSimilars(role)
+    assert dm.getDescriptionOf(role) == "Decide con gli altri lupi un qualsiasi personaggio da uccidere"
+    assert dm.getImagePathOf(role) == 'default/lupo.jpg'
 
-
-def getFactionOf(role):
-    return ROLES[role]["faction"]
-
-
-def getImageOf(role):
-    return ROLES[role]["image"]
+    print("OK all is correct")
