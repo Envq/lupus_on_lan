@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-import flask
-from model import Game
-
 from flask import Flask, request
 from flask.templating import render_template
+import time
+
+from model import Game
 
 
 # INITIALIZATION FLASK
-app = Flask("virtual-lupus Game",
+app = Flask("Lupus on LAN",
             static_folder='images')
 
 
@@ -15,52 +15,54 @@ app = Flask("virtual-lupus Game",
 app.game = Game()
 
 
+# CUSTOM FUNCTIONS
+def goToLobby(userID):
+    return render_template("lobby.html",
+                            userName = app.game.getNameOf(userID),
+                            players  = app.game.getPlayersName())
+
+
 # FLASK FUNCTIONS
 @app.route("/")
 def home():
-    """Home page"""
-    return render_template("home.html")
+    userIP = request.remote_addr
+    if app.game.isAlreadyLogged(userIP):
+        return goToLobby(userIP)
+    # go to register page
+    return render_template("register.html")
 
 
-@app.route("/register", methods=["POST"])
+@app.route("/register", methods=['GET', 'POST'])
 def register():
-    """Register player"""
-    if request.method == "POST":
-        user = request.form["userId"]
-        if app.game.addPlayer(user):
-            return render_template("loading.html",
-                                   userId=user,
-                                   players = app.game.getPlayersName())
-    return render_template("home.html")
+    userIP = request.remote_addr
+    if app.game.isAlreadyLogged(userIP):
+        return goToLobby(userIP)
+    # Check if there is a message
+    if request.method == 'POST':
+        userName = request.form["userName"]
+        if app.game.addPlayer(userIP, userName):
+            return goToLobby(userIP)
+    return render_template("register.html")
 
 
-@app.route("/lobby", methods=["POST"])
+@app.route("/lobby", methods=['GET', 'POST'])
 def lobby():
-    """Loading player"""
-    if request.method == "POST":
-        user = request.form["userId"]
-        if not app.game.isStart():
-            return render_template("loading.html",
-                                   userId  = user,
-                                   players = app.game.getPlayersName())
+    userIP = request.remote_addr
+    if not app.game.isAlreadyLogged(userIP):
+        return render_template("register.html")
+    # Check if start
+    if app.game.isStart():
+        name = app.game.getNameOf(userIP)
+        if name == 'master':
+            return render_template("master.html",
+                                    players=app.game.getPlayers())
         else:
-            userRole = app.game.getRoleOf(user)
+            userRole = app.game.getRoleOf(userIP)
             return render_template("player.html",
-                                    userId         = user,
+                                    userName       = name,
                                     role           = userRole,
                                     faction        = app.game.getFactionOf(userRole),
-                                    description    = app.game.getDescriptionOf(userRole),
+                                    description    = app.game.getPlayerDescriptionOf(userRole),
                                     imagePath      = app.game.getImagePathOf(userRole),
-                                    playersSimilar = app.game.getPlayersSimilarTo(user))
-
-
-@app.route("/test")
-def prova():
-    userRole = 'lupo'
-    return render_template("player.html",
-                            userId         = 'Ezio',
-                            role           = userRole,
-                            faction        = app.game.getFactionOf(userRole),
-                            description    = app.game.getDescriptionOf(userRole),
-                            imagePath      = app.game.getImagePathOf(userRole),
-                            playersSimilar = [])
+                                    playersSimilar = app.game.getPlayersSimilarTo(userIP))
+    return goToLobby(userIP)

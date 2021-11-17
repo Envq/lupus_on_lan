@@ -1,58 +1,31 @@
 {
-    "lupo": {
-        "num": 2,
+    "werewolf": {
+        "num": 1,
+        "name": "Lupo Mannaro",
         "faction": "Cattivo",
+        "seenAs": "Cattivo",
         "isVisibleForSimilars": true,
-        "description": "Decide con gli altri lupi un qualsiasi personaggio da uccidere",
+        "description": "Ad inizio partita i lupi mannari si riconoscono. Ogni notte si accordano per sbranare uno degli abitanti del villaggio che, salvo interventi di personaggi speciali, verrà dichiarato morto dal master all'inizio della giornata successiva.",
+        "playerDescription": "Decide con gli altri lupi un qualsiasi personaggio da uccidere.",
         "image": "default/lupo.jpg"
     },
-    "contadino": {
-        "num": 1,
-        "faction": "Buono",
-        "isVisibleForSimilars": false,
-        "description": "Non fa niente lol",
-        "image": "default/contadino.jpg"
-    },
-    "guardia": {
+    "seer": {
         "num": 0,
+        "name": "Veggente",
         "faction": "Buono",
+        "seenAs": "Buono",
         "isVisibleForSimilars": false,
-        "description": "Indica un giocatore; questi è immune dall'attacco dei lupi durante la notte corrente",
-        "image": "default/guardia.jpg"
-    },
-    "veggente": {
-        "num": 0,
-        "faction": "Buono",
-        "isVisibleForSimilars": false,
-        "description": "Chiede al master la fazione di un giocatore (il criceto, se scelto, viene visto buono ma muore istantaneamente)",
+        "description": "Ogni notte indica al master un giocatore da visionare. Il master gli indicherà se è o non è cattivo.",
+        "playerDescription": "Sceglie un giocatore e ottiene la fazione di appartenenza di esso. Nota: non tutti i personaggi sono visti con la loro vera fazione.",
         "image": "default/veggente.jpg"
     },
-    "massone": {
+    "villager": {
         "num": 0,
-        "faction": "Buono",
-        "isVisibleForSimilars": true,
-        "description": "Non fa nulla salvo conoscere l'identità degli altri massoni",
-        "image": "default/massone.jpg"
-    },
-    "mago": {
-        "num": 0,
+        "name": "Contadino",
         "faction": "Buono",
         "isVisibleForSimilars": false,
-        "description": "Indica un giocatore; qualsiasi azione effettuata che bersaglia il giocatore scelto viene riflessa a colui che la esegue",
-        "image": "default/mago.jpg"
-    },
-    "untore": {
-        "num": 0,
-        "faction": "Cattivo",
-        "isVisibleForSimilars": false,
-        "description": "Unge un giocatore",
-        "image": "default/untore.jpg"
-    },
-    "criceto": {
-        "num": 0,
-        "faction": "Neutro",
-        "isVisibleForSimilars": false,
-        "description": "Non fa nulla. Se alla fine del gioco tutti i lupi vengono eliminati, stermina automaticamente tutti i Buono e vince lui. Muore se indicato dal veggente, non può essere ucciso dai lupi, può essere ucciso al rogo",
-        "image": "default/criceto.jpg"
+        "description": "Il suo compito è scoprire chi sono i lupi, ma non ha armi a disposizione ad eccezione dell'intuito e della logica. ",
+        "playerDescription:": "Cerca di non farsi uccidere e capire chi sono i lupi in modo da votare per ucciderli.",
+        "image": "default/contadino.jpg"
     }
 }

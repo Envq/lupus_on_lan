@@ -4,14 +4,11 @@
 
 <div class="row justify-content-center mt-5">
   <div class="col-12" style="text-align: center">
-    <h3>Lobby:</h3>
-
-
+    <h3>Lobby</h3>
     <p>{% for e in players %}{{ e }}, {% endfor %}</p>
-
     <form style="text-align: center;" method="POST" action="/lobby">
       <input type="hidden" name="userId" value="{{ userId }}">
-      <input type="submit" class="btn btn-primary" value="AGGIORNA">
+      <input type="submit" class="btn btn-primary" value="RELOAD">
     </form>
   </div>
 </div>

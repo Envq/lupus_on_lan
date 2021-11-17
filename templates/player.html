@@ -4,13 +4,21 @@
 
 <div class="row justify-content-center mt-3">
   <div class="col-12" style="text-align: center">
-    <h3>{{ userId }}</h3>
-    <h4>{{ faction }}: {{ role }}</h4>
+    <p><b>User:</b> {{ userName }} </p>
+    <p><b>Faction:</b> {{ faction }} </p>
+    <p><b>Role:</b> {{ role }} </p>
+    <p><b>Description:</b> {{ description }} </p>
+
     {% if playersSimilar %}
-      <h4>con: {% for e in playersSimilar %}{{ e }}, {% endfor %}</h4>
+      <p><b>Ally:</b>: {% for e in playersSimilar %}{{ e }}, {% endfor %}</h4>
     {% endif %}
-    <p>{{ description }}</p>
+
     <img src={{ imagePath }}>
+
+    <form style="text-align: center;" method="POST" action="/lobby">
+      <input type="hidden" name="userId" value="{{ userId }}">
+      <input type="submit" class="btn btn-primary" value="AGGIORNA">
+    </form>
   </div>
 </div>
 
