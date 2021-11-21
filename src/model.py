@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 import random
 from enum import Enum
 
@@ -9,11 +9,12 @@ class GamePhase(Enum):
     init = 0
     waitForPeoples = 1
     start = 2
+    finish = 3
 
 
 class Game:
     def __init__(self):
-        self.state = GamePhase.init
+        self.phase = GamePhase.init
         self.dataManager = DataManager()
         self.rolesSelected = self.dataManager.getRolesAvailables()
         self.playerCounter = 0
@@ -21,19 +22,23 @@ class Game:
         self.allPlayersAreAssigned = False
         self.master = None
         self.masterIsAssigned = False
-        self.state = GamePhase.waitForPeoples
+        self.phase = GamePhase.waitForPeoples
 
     # DataManager Wrappers
-    def isVisibleForSimilars(self, role):
-        return self.dataManager.getIsVisibleForSimilars(role)
-
-
-    def getFactionOf(self, role):
-        return self.dataManager.getFactionOf(role)
-
-
     def getDescriptions(self, role):
         return self.dataManager.getDescriptions(role)
+
+
+    def getRaceOf(self, role):
+        return self.dataManager.getRaceOf(role)
+
+
+    def getTeamOf(self, role):
+        return self.dataManager.getTeamOf(role)
+
+
+    def isVisibleForSimilars(self, role):
+        return self.dataManager.getIsVisibleForSimilars(role)
 
 
     def getPlayerDescriptionOf(self, role):
@@ -58,8 +63,8 @@ class Game:
 
 
     def addPlayer(self, id, name):
-        # check if the state is valid
-        if self.state != GamePhase.waitForPeoples:
+        # check if the phase is valid
+        if self.phase != GamePhase.waitForPeoples:
             return False
         # check if the user is alredy register
         if (id in self.players) or (id == self.master):
@@ -67,9 +72,6 @@ class Game:
         # check if the name is valid
         if name == None or name == '' or name.lower() in [p.lower() for p in self.players.keys()]:
             return False
-        # check if all roles are assigned
-        if self.playerCounter == len(self.rolesSelected):
-            self.allPlayersAreAssigned = True
         # check if master
         if name.lower() == 'master':
             self.master = id
@@ -84,12 +86,12 @@ class Game:
             self.players[id]['death'] = False
             self.players[id]['role'] = self.rolesSelected[self.playerCounter]
             self.playerCounter += 1
+            # check if all roles are assigned
+            if self.playerCounter == len(self.rolesSelected):
+                self.allPlayersAreAssigned = True
         # Check if the game can start
         if self.allPlayersAreAssigned and self.masterIsAssigned:
-            tmp = list(self.players.items())
-            random.shuffle(tmp)
-            self.players = dict(tmp)
-            self.state = GamePhase.start
+            self.newGame()
         return True
 
 
@@ -101,7 +103,7 @@ class Game:
 
 
     def isStart(self):
-        return self.state == GamePhase.start
+        return self.phase == GamePhase.start
 
 
     # Player phase
@@ -116,12 +118,25 @@ class Game:
 
 
     def getRoleOf(self, id):
-        print(self.players)
         return self.players[id]['role']
 
     
     def getPlayers(self):
         return self.players
+
+
+    # Finish
+    def isFinish(self):
+        return self.phase == GamePhase.finish
+
+
+    def newGame(self):
+        self.phase = GamePhase.init
+        tmp = list(self.players.items())
+        random.shuffle(tmp)
+        self.players = dict(tmp)
+        self.phase = GamePhase.start
+
 
 
 # TESTS
@@ -139,7 +154,7 @@ if __name__ == "__main__":
     assert g.getNameOf(id_a) == 'UnkownName'
 
     assert not g.isStart()
-    assert g.state == GamePhase.waitForPeoples
+    assert g.phase == GamePhase.waitForPeoples
     assert g.rolesSelected == [role, role]
     assert g.players == {}
     assert not g.masterIsAssigned
@@ -147,21 +162,21 @@ if __name__ == "__main__":
 
     res = g.addPlayer(id_a, 'a')
     assert res
-    assert g.state == GamePhase.waitForPeoples
+    assert g.phase == GamePhase.waitForPeoples
     assert g.players == {id_a: {'name':'a', 'death':False, 'role':role}}
     assert not g.masterIsAssigned
     assert not g.allPlayersAreAssigned
 
     res = g.addPlayer(id_a, 'a')
     assert not res
-    assert g.state == GamePhase.waitForPeoples
+    assert g.phase == GamePhase.waitForPeoples
     assert g.players == {id_a: {'name':'a', 'death':False, 'role':role}}
     assert not g.masterIsAssigned
     assert not g.allPlayersAreAssigned
 
     res = g.addPlayer(id_b, 'b')
     assert res
-    assert g.state == GamePhase.waitForPeoples
+    assert g.phase == GamePhase.waitForPeoples
     assert g.players == {id_a: {'name':'a', 'death':False, 'role':role}, \
                          id_b: {'name':'b', 'death':False, 'role':role}}
     assert not g.masterIsAssigned
@@ -172,7 +187,7 @@ if __name__ == "__main__":
 
     res = g.addPlayer('192.168.1.140', 'c')
     assert not res
-    assert g.state == GamePhase.waitForPeoples
+    assert g.phase == GamePhase.waitForPeoples
     assert g.players == {id_a: {'name':'a', 'death':False, 'role':role}, \
                          id_b: {'name':'b', 'death':False, 'role':role}}
     assert not g.masterIsAssigned
@@ -181,7 +196,7 @@ if __name__ == "__main__":
     assert g.master == None
     res = g.addPlayer(id_master, 'master')
     assert res
-    assert g.state == GamePhase.start
+    assert g.phase == GamePhase.start
     assert g.players == {id_a: {'name':'a', 'death':False, 'role':role}, \
                          id_b: {'name':'b', 'death':False, 'role':role}}
     assert g.master == id_master

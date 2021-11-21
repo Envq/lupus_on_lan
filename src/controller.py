@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 from flask import Flask, request
 from flask.templating import render_template
 import time
@@ -61,7 +61,7 @@ def lobby():
             return render_template("player.html",
                                     userName       = name,
                                     role           = userRole,
-                                    faction        = app.game.getFactionOf(userRole),
+                                    team           = app.game.getTeamOf(userRole),
                                     description    = app.game.getPlayerDescriptionOf(userRole),
                                     imagePath      = app.game.getImagePathOf(userRole),
                                     playersSimilar = app.game.getPlayersSimilarTo(userIP))

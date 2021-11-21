@@ -1,6 +1,6 @@
 {
     "werewolf": {
-        "num": 2,
+        "num": 1,
         "name": "Lupo Mannaro",
         "race": "Mostro",
         "team": "Mostri",
@@ -112,7 +112,7 @@
     "infector": {
         "num": 0,
         "name": "Untore",
-        "race": "Umano",
+        "race": "Mostro",
         "team": "Umani",
         "isVisibleForSimilars": false,
         "description": "Unge un giocatore. Chi è unto muore automaticamente se pronuncierà le parole si o no, ungendo i personaggi adiacenti.",
