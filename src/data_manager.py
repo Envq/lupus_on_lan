@@ -33,12 +33,12 @@ class DataManager:
         return self.rolesData[role]['name']
 
 
-    def getFactionOf(self, role):
-        return self.rolesData[role]["faction"]
+    def getRaceOf(self, role):
+        return self.rolesData[role]["race"]
 
 
-    def getSeenAs(self, role):
-        return self.rolesData[role]["seenAs"]
+    def getTeamOf(self, role):
+        return self.rolesData[role]["team"]
 
 
     def getIsVisibleForSimilars(self, role):
@@ -64,14 +64,15 @@ if __name__ == "__main__":
 
     role = 'werewolf'
     assert dm.getRolesAvailables() == ['werewolf', 'werewolf']
-    assert dm.getDescriptions() == {'Lupo Mannaro': "Ad inizio partita i lupi mannari si riconoscono. Ogni notte si accordano per sbranare uno degli abitanti del villaggio che, salvo interventi di personaggi speciali, verrà dichiarato morto dal master all'inizio della giornata successiva."}
+    assert dm.getDescriptions() == {'Lupo Mannaro': "[8+] Ad inizio partita i lupi mannari si riconoscono. Ogni notte si accordano per sbranare uno degli abitanti del villaggio che, salvo interventi di personaggi speciali, verrà dichiarato morto dal master all'inizio della giornata successiva."}
+
     assert dm.getNumOf(role) == 2
     assert dm.getNameOf(role) == 'Lupo Mannaro'
-    assert dm.getFactionOf(role) == 'Cattivo'
-    assert dm.getSeenAs(role) == 'Cattivo'
-    assert dm.getIsVisibleForSimilars(role)
-    assert dm.getDescriptionOf(role) == "Ad inizio partita i lupi mannari si riconoscono. Ogni notte si accordano per sbranare uno degli abitanti del villaggio che, salvo interventi di personaggi speciali, verrà dichiarato morto dal master all'inizio della giornata successiva."
+    assert dm.getRaceOf(role) == 'Mostro'
+    assert dm.getTeamOf(role) == 'Mostri'
+    assert dm.getIsVisibleForSimilars(role) == True
+    assert dm.getDescriptionOf(role) == "[8+] Ad inizio partita i lupi mannari si riconoscono. Ogni notte si accordano per sbranare uno degli abitanti del villaggio che, salvo interventi di personaggi speciali, verrà dichiarato morto dal master all'inizio della giornata successiva."
     assert dm.getPlayerDescriptionOf(role) == "Decide con gli altri lupi un qualsiasi personaggio da uccidere."
-    assert dm.getImagePathOf(role) == 'images/default/lupo.jpg'
+    assert dm.getImagePathOf(role) == 'images/default/werewolf.jpg'
     
     print("OK all is correct")
