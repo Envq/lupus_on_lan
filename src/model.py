@@ -100,6 +100,10 @@ class Game:
         if self.masterIsAssigned:
             return names + ['master']
         return names
+    
+
+    def getProgressLobbyStr(self):
+        return f'{int(len(self.getPlayersName())/(len(self.rolesSelected)+1)*100)}%'
 
 
     def isStart(self):

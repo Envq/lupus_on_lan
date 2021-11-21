@@ -19,7 +19,8 @@ app.game = Game()
 def goToLobby(userID):
     return render_template("lobby.html",
                             userName = app.game.getNameOf(userID),
-                            players  = app.game.getPlayersName())
+                            players  = app.game.getPlayersName(),
+                            progress = app.game.getProgressLobbyStr())
 
 
 # FLASK FUNCTIONS
@@ -39,7 +40,7 @@ def register():
         return goToLobby(userIP)
     # Check if there is a message
     if request.method == 'POST':
-        userName = request.form["userName"]
+        userName = request.form["nickname"]
         if app.game.addPlayer(userIP, userName):
             return goToLobby(userIP)
     return render_template("register.html")

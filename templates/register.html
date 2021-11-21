@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
-
 {% block content %}
 
-<div class="row justify-content-center mt-5">
-  <div class="col-12" style="text-align: center">
-    <h1 class="text-center">Lupus on LAN</h1>
-    <h5>Nickname:</h3>
-    <form style="text-align: center;" method="POST" action="/register">
-      <input type="text" class="mb-2" name="userName"><br>
-      <input type="submit" class="btn btn-primary" value="start" id="submitId" onclick=submitChecker()>
+<div class="text-center p-2">
+    <h5>Nickname:</h5>
+    <form method="POST" action="/register">
+      <input class="m-2" type="text" name="nickname"><br>
+      <input class="btn btn-primary" 
+              type="submit" 
+              value="start" 
+              id="submitId" 
+              onclick=submitChecker()>
     </form>
-  </div>
 </div>
 
 {% endblock content %}
