@@ -29,6 +29,10 @@ class Game:
         return self.dataManager.getDescriptions(role)
 
 
+    def getRoleNameOf(self, role):
+        return self.dataManager.getRoleNameOf(role)
+
+
     def getRaceOf(self, role):
         return self.dataManager.getRaceOf(role)
 
@@ -63,6 +67,7 @@ class Game:
 
 
     def addPlayer(self, id, name):
+        """Returns True if the addition of the player was successful"""
         # check if the phase is valid
         if self.phase != GamePhase.waitForPeoples:
             return False
@@ -72,23 +77,29 @@ class Game:
         # check if the name is valid
         if name == None or name == '' or name.lower() in [p.lower() for p in self.players.keys()]:
             return False
+        # check if all roles are just assigned
+        if self.playerCounter == len(self.rolesSelected):
+            self.allPlayersAreAssigned = True
         # check if master
         if name.lower() == 'master':
             self.master = id
             self.masterIsAssigned = True
-        else:
-            # check if can add player
+            # Check if game can start
             if self.allPlayersAreAssigned:
-                return False
-            # add player
-            self.players[id] = dict()
-            self.players[id]['name'] = name
-            self.players[id]['death'] = False
-            self.players[id]['role'] = self.rolesSelected[self.playerCounter]
-            self.playerCounter += 1
-            # check if all roles are assigned
-            if self.playerCounter == len(self.rolesSelected):
-                self.allPlayersAreAssigned = True
+                self.newGame()
+            return True
+        # check if add player
+        if self.allPlayersAreAssigned:
+            return False
+        # add player
+        self.players[id] = dict()
+        self.players[id]['name'] = name
+        self.players[id]['death'] = False
+        self.players[id]['role'] = self.rolesSelected[self.playerCounter]
+        self.playerCounter += 1
+        # check if all roles are assigned
+        if self.playerCounter == len(self.rolesSelected):
+            self.allPlayersAreAssigned = True
         # Check if the game can start
         if self.allPlayersAreAssigned and self.masterIsAssigned:
             self.newGame()

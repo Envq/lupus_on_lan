@@ -14,7 +14,7 @@ class DataManager:
             for _ in range(info["num"]):
                 self.rolesAvailables.append(role)
             if info["num"] > 0:
-                self.descriptions[info['name']] = info['description']
+                self.descriptions[info['roleName']] = info['description']
 
 
     def getRolesAvailables(self):
@@ -29,8 +29,8 @@ class DataManager:
         return self.rolesData[role]['num']
 
 
-    def getNameOf(self, role):
-        return self.rolesData[role]['name']
+    def getRoleNameOf(self, role):
+        return self.rolesData[role]['roleName']
 
 
     def getRaceOf(self, role):
@@ -67,12 +67,12 @@ if __name__ == "__main__":
     assert dm.getDescriptions() == {'Lupo Mannaro': "[8+] Ad inizio partita i lupi mannari si riconoscono. Ogni notte si accordano per sbranare uno degli abitanti del villaggio che, salvo interventi di personaggi speciali, verrà dichiarato morto dal master all'inizio della giornata successiva."}
 
     assert dm.getNumOf(role) == 2
-    assert dm.getNameOf(role) == 'Lupo Mannaro'
+    assert dm.getRoleNameOf(role) == 'Lupo Mannaro'
     assert dm.getRaceOf(role) == 'Mostro'
-    assert dm.getTeamOf(role) == 'Mostri'
+    assert dm.getTeamOf(role) == 'Mostro'
     assert dm.getIsVisibleForSimilars(role) == True
     assert dm.getDescriptionOf(role) == "[8+] Ad inizio partita i lupi mannari si riconoscono. Ogni notte si accordano per sbranare uno degli abitanti del villaggio che, salvo interventi di personaggi speciali, verrà dichiarato morto dal master all'inizio della giornata successiva."
-    assert dm.getPlayerDescriptionOf(role) == "Decide con gli altri lupi un qualsiasi personaggio da uccidere."
+    assert dm.getPlayerDescriptionOf(role) == "Durante la notte decidi, con gli altri lupi, il giocatore da uccidere."
     assert dm.getImagePathOf(role) == 'images/default/werewolf.jpg'
     
     print("OK all is correct")

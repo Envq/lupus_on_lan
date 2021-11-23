@@ -53,15 +53,16 @@ def lobby():
         return render_template("register.html")
     # Check if start
     if app.game.isStart():
-        name = app.game.getNameOf(userIP)
-        if name == 'master':
+        userName = app.game.getNameOf(userIP)
+        if userName == 'master':
             return render_template("master.html",
                                     players=app.game.getPlayers())
         else:
             userRole = app.game.getRoleOf(userIP)
             return render_template("player.html",
-                                    userName       = name,
-                                    role           = userRole,
+                                    name           = userName,
+                                    role           = app.game.getRoleNameOf(userRole),
+                                    race           = app.game.getRaceOf(userRole),
                                     team           = app.game.getTeamOf(userRole),
                                     description    = app.game.getPlayerDescriptionOf(userRole),
                                     imagePath      = app.game.getImagePathOf(userRole),

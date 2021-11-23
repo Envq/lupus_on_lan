@@ -1,25 +1,32 @@
 {% extends 'base.html' %}
-
 {% block content %}
 
-<div class="row justify-content-center mt-3">
-  <div class="col-12" style="text-align: center">
-    <p><b>User:</b> {{ userName }} </p>
-    <p><b>Faction:</b> {{ faction }} </p>
-    <p><b>Role:</b> {{ role }} </p>
-    <p><b>Description:</b> {{ description }} </p>
-
-    {% if playersSimilar %}
-      <p><b>Ally:</b>: {% for e in playersSimilar %}{{ e }}, {% endfor %}</h4>
-    {% endif %}
-
-    <img src={{ imagePath }}>
-
-    <form style="text-align: center;" method="POST" action="/lobby">
-      <input type="hidden" name="userId" value="{{ userId }}">
-      <input type="submit" class="btn btn-primary" value="AGGIORNA">
-    </form>
+<div class="row p-2">
+  <div class="col">
+    <div class="row"><p><b>Name: </b>{{ name }}</p></div>
+    <div class="row"><p><b>Role: </b>{{ role }}</p></div>
+    <div class="row"><p><b>Race: </b>{{ race }}</p></div>
+    <div class="row"><p><b>Team: </b>{{ team }}</p></div>
   </div>
+  <div class="col">
+    <img src={{ imagePath }} alt="Role Picture" style="width:75%;">
+  </div>
+
+  <p>{{ description }}</p>
+
+  {% if playersSimilar %}
+    <h4 class="fw-bold">Ally:</h4>
+    <div class="d-flex flex-wrap">
+      {% for name in playersSimilar %}
+      <div class="bg-light text-black rounded-3 m-2 px-4">{{ name }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form class="text-center" method="POST" action="/lobby">
+    <input type="submit" class="btn btn-primary" value="RELOAD">
+  </form>
 </div>
+
 
 {% endblock content %}
