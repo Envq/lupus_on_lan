@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from os import name
 from flask import Flask, request
 from flask.templating import render_template
 import time
@@ -18,8 +19,7 @@ app.game = Game()
 # CUSTOM FUNCTIONS
 def goToLobby(userID):
     return render_template("lobby.html",
-                            userName = app.game.getNameOf(userID),
-                            players  = app.game.getPlayersName(),
+                            players  = app.game.getUsersNames(),
                             progress = app.game.getProgressLobbyStr())
 
 
@@ -41,7 +41,7 @@ def register():
     # Check if there is a message
     if request.method == 'POST':
         userName = request.form["nickname"]
-        if app.game.addPlayer(userIP, userName):
+        if app.game.addUser(userIP, userName):
             return goToLobby(userIP)
     return render_template("register.html")
 
@@ -52,19 +52,28 @@ def lobby():
     if not app.game.isAlreadyLogged(userIP):
         return render_template("register.html")
     # Check if start
-    if app.game.isStart():
-        userName = app.game.getNameOf(userIP)
-        if userName == 'master':
-            return render_template("master.html",
-                                    players=app.game.getPlayers())
-        else:
-            userRole = app.game.getRoleOf(userIP)
+    if app.game.lobbyIsFull():
+        if not app.game.isMaster(userIP):
             return render_template("player.html",
-                                    name           = userName,
-                                    role           = app.game.getRoleNameOf(userRole),
-                                    race           = app.game.getRaceOf(userRole),
-                                    team           = app.game.getTeamOf(userRole),
-                                    description    = app.game.getPlayerDescriptionOf(userRole),
-                                    imagePath      = app.game.getImagePathOf(userRole),
+                                    name           = app.game.getNameOf(userIP),
+                                    role           = app.game.getRoleDataOf(userIP),
                                     playersSimilar = app.game.getPlayersSimilarTo(userIP))
+        else:
+            return render_template("master_night.html",
+                                    players     = app.game.getPlayers(),
+                                    roles       = app.game.getRolesData(),
+                                    nightPhases = app.game.getNightPhases())
+    return goToLobby(userIP)
+
+
+@app.route("/master_day", methods=['GET', 'POST'])
+def masterDay():
+    userIP = request.remote_addr
+    if app.game.isMaster(userIP):
+        # Check if there is a message
+        if request.method == 'POST':
+            app.game.processNightData(dict(request.form))
+            return render_template("master_day.html",
+                                    players     = app.game.getPlayers(),
+                                    roles       = app.game.getRolesData())
     return goToLobby(userIP)

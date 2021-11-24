@@ -4,15 +4,15 @@
 <div class="row p-2">
   <div class="col">
     <div class="row"><p><b>Name: </b>{{ name }}</p></div>
-    <div class="row"><p><b>Role: </b>{{ role }}</p></div>
-    <div class="row"><p><b>Race: </b>{{ race }}</p></div>
-    <div class="row"><p><b>Team: </b>{{ team }}</p></div>
+    <div class="row"><p><b>Role: </b>{{ role['name'] }}</p></div>
+    <div class="row"><p><b>Race: </b>{{ role['race'] }}</p></div>
+    <div class="row"><p><b>Team: </b>{{ role['team'] }}</p></div>
   </div>
   <div class="col">
-    <img src={{ imagePath }} alt="Role Picture" style="width:75%;">
+    <img src={{ role['image'] }} alt="Role Picture" style="width:100%;">
   </div>
 
-  <p>{{ description }}</p>
+  <p>{{ role['description'] }}</p>
 
   {% if playersSimilar %}
     <h4 class="fw-bold">Ally:</h4>

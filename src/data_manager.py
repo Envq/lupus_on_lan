@@ -7,72 +7,66 @@ class DataManager:
         # load rolesData
         with open(settings_path) as file:
             self.rolesData = json.load(file)
-        # Preprocessing
-        self.rolesAvailables = list()
-        self.descriptions = dict()
-        for role, info in self.rolesData.items():
-            for _ in range(info["num"]):
-                self.rolesAvailables.append(role)
-            if info["num"] > 0:
-                self.descriptions[info['roleName']] = info['description']
-
+        
 
     def getRolesAvailables(self):
-        return self.rolesAvailables
+        """Return the dictionary with the informations of all the selected roles."""
+        roles = dict()
+        for role, info in self.rolesData.items():
+            if not info['num'] == 0:
+                roles[role] = {
+                    'name'        : info['name'],
+                    'race'        : info['race'],
+                    'team'        : info['team'],
+                    'description' : info['playerDescription'],
+                    'image'       : 'images/' + info['image'],
+                }
+        return roles
+    
+
+    def getPlayersRoles(self):
+        """Return a list with all the rolesName in Game. Roles with num>1 have rapeated names."""
+        roles = list()
+        for k,v in self.rolesData.items():
+            for _ in range(v['num']):
+                roles.append(k)
+        return roles
+    
+
+    def _getRolesOrder(self):
+        order = dict()
+        for i in range(len(self.rolesData)):
+            order[i] = list()
+        for id, info in self.rolesData.items():
+            order[info['priority']].append(id)
+        return order
 
 
-    def getDescriptions(self):
-        return self.descriptions
-
-
-    def getNumOf(self, role):
-        return self.rolesData[role]['num']
-
-
-    def getRoleNameOf(self, role):
-        return self.rolesData[role]['roleName']
-
-
-    def getRaceOf(self, role):
-        return self.rolesData[role]["race"]
-
-
-    def getTeamOf(self, role):
-        return self.rolesData[role]["team"]
-
-
-    def getIsVisibleForSimilars(self, role):
-        return self.rolesData[role]["isVisibleForSimilars"]
-
-
-    def getDescriptionOf(self, role):
-        return self.rolesData[role]["description"]
-
-
-    def getPlayerDescriptionOf(self, role):
-        return self.rolesData[role]["playerDescription"]
-
-
-    def getImagePathOf(self, role):
-        return 'images/' + self.rolesData[role]['image']
-
-
+    def getNightPhases(self, roles_availables):
+        """Return a ordered list of phase from the selected roles."""
+        phases = list()
+        for priority, roles in self._getRolesOrder().items():
+            if roles != [] and priority != 0:
+                for r in roles:
+                    if r in roles_availables:
+                        phases.append((r, True))
+        return phases
 
 # TESTS
 if __name__ == "__main__":
     dm = DataManager(settings_path="roles.json")
 
-    role = 'werewolf'
-    assert dm.getRolesAvailables() == ['werewolf', 'werewolf']
-    assert dm.getDescriptions() == {'Lupo Mannaro': "[8+] Ad inizio partita i lupi mannari si riconoscono. Ogni notte si accordano per sbranare uno degli abitanti del villaggio che, salvo interventi di personaggi speciali, verrà dichiarato morto dal master all'inizio della giornata successiva."}
+    print('getRolesAvailables')
+    print(dm.getRolesAvailables())
+    print("---")
+    print("getPlayersRoles")
+    print(dm.getPlayersRoles())
+    print("---")
+    print("_getRolesOrder")
+    print(dm._getRolesOrder())
+    print("---")
+    print("getNightPhases")
+    print(dm.getNightPhases(dm.getPlayersRoles()))
+    print("---")
 
-    assert dm.getNumOf(role) == 2
-    assert dm.getRoleNameOf(role) == 'Lupo Mannaro'
-    assert dm.getRaceOf(role) == 'Mostro'
-    assert dm.getTeamOf(role) == 'Mostro'
-    assert dm.getIsVisibleForSimilars(role) == True
-    assert dm.getDescriptionOf(role) == "[8+] Ad inizio partita i lupi mannari si riconoscono. Ogni notte si accordano per sbranare uno degli abitanti del villaggio che, salvo interventi di personaggi speciali, verrà dichiarato morto dal master all'inizio della giornata successiva."
-    assert dm.getPlayerDescriptionOf(role) == "Durante la notte decidi, con gli altri lupi, il giocatore da uccidere."
-    assert dm.getImagePathOf(role) == 'images/default/werewolf.jpg'
-    
     print("OK all is correct")

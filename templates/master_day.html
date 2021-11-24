@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row fw-bold">
+  <div class="col">NAME</div>
+  <div class="col">ROLE</div>
+  <div class="col">RACE</div>
+  <div class="col">STATUS</div>
+</div>
+
+{% for info in players.values() %}
+  <div class="row" id="row{{ name }}">
+    <div class="col">
+      <p class="my-2">{{ info['name'] }}</p>
+    </div>
+    <div class="col">
+      <p class="my-2">{{ roles[info['role']]['name'] }}</p>
+    </div>
+    <div class="col">
+      <p class="my-2">{{ roles[info['role']]['race'] }}</p>
+    </div>
+    <div class="col">
+      <p class="my-2">{{ 'x' }}</p>
+    </div>
+  </div>
+  {% endfor %}
+
+  <!-- Order:
+    mago        x    stregato
+    mitomanete  -
+    veggente    -
+    medium      -
+    gufo        x    gufato
+    guardia     x    protetto     
+    lupo        x    morto        unico
+    untore      x    unto
+
+   -->
+
+
+  <!-- <script>
+  var color{{ name }} = 0;
+  function change{{ name }}() {
+    if (window.color{{ name }} == 0) {
+      document.getElementById("row{{ name }}").style.backgroundColor = '{{ "#a3d1ff" }}';
+      window.color{{ name }} = 1;
+    }
+    else if (window.color{{ name }} == 1) {
+      document.getElementById("row{{ name }}").style.backgroundColor = '{{ "#f7ffa3" }}';
+      window.color{{ name }} = 2;
+    }
+    else if (window.color{{ name }} == 2) {
+      document.getElementById("row{{ name }}").style.backgroundColor = '{{ "#a3ffb1" }}';
+      window.color{{ name }} = 3;
+    }
+    else if (window.color{{ name }} == 3) {
+      document.getElementById("row{{ name }}").style.backgroundColor = '{{ "#ffa3a3" }}';
+      window.color{{ name }} = 4;
+    }
+    else if (window.color{{ name }} == 4) {
+      document.getElementById("row{{ name }}").style.backgroundColor = 'white';
+      window.color{{ name }} = 0;
+    };
+  };
+  function kill{{ name }}() {
+    document.getElementById("row{{ name }}").innerHTML = "";
+  };
+  </script> -->
+
+<form class="text-center" method="POST" action="/lobby">
+  <input type="submit" class="btn btn-primary" value="DEBUG-RELOAD">
+</form>
+
+{% endblock content %}

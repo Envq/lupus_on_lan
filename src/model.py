@@ -1,156 +1,169 @@
 #!/usr/bin/python3
 import random
-from enum import Enum
 
 from data_manager import DataManager
 
 
-class GamePhase(Enum):
-    init = 0
-    waitForPeoples = 1
-    start = 2
-    finish = 3
-
-
 class Game:
+    # DEPRECED
     def __init__(self):
-        self.phase = GamePhase.init
-        self.dataManager = DataManager()
-        self.rolesSelected = self.dataManager.getRolesAvailables()
-        self.playerCounter = 0
-        self.players = dict()
-        self.allPlayersAreAssigned = False
-        self.master = None
-        self.masterIsAssigned = False
-        self.phase = GamePhase.waitForPeoples
-
-    # DataManager Wrappers
-    def getDescriptions(self, role):
-        return self.dataManager.getDescriptions(role)
-
-
-    def getRoleNameOf(self, role):
-        return self.dataManager.getRoleNameOf(role)
-
-
-    def getRaceOf(self, role):
-        return self.dataManager.getRaceOf(role)
-
-
-    def getTeamOf(self, role):
-        return self.dataManager.getTeamOf(role)
-
-
-    def isVisibleForSimilars(self, role):
-        return self.dataManager.getIsVisibleForSimilars(role)
-
-
-    def getPlayerDescriptionOf(self, role):
-        return self.dataManager.getPlayerDescriptionOf(role)
-
-
-    def getImagePathOf(self, role):
-        return self.dataManager.getImagePathOf(role)
-
-
-    # Init to Start phase
-    def isAlreadyLogged(self, id):
-        return (id in self.players) or (self.masterIsAssigned and id == self.master)
-
+        self.dataManager  = DataManager()
+        self.rolesData    = self.dataManager.getRolesAvailables()
+        self.rolesList    = self.dataManager.getPlayersRoles()
+        self.nightPhases  = self.dataManager.getNightPhases(self.rolesList)
+        self.players      = dict()
+        self.master       = None
+        self._userCounter = 0 
+        self._addFake()
     
-    def getNameOf(self, id):
-        if self.masterIsAssigned and id == self.master:
-            return 'master'
-        if id in self.players:
-            return self.players[id]['name']
-        return 'UnkownName'
+
+    def _addFake(self):
+        # ROLES_LIST
+        self.rolesList = ['werewolf', 'villager', 'seer']
+        # PLAYERS
+        self.players = dict()
+        self.players['192.168.1.10'] = {
+            'name' : 'Gino',
+            'role' : 'werewolf',
+            'death': False,
+        }
+        self.players['192.168.1.11'] = {
+            'name' : 'Ezio',
+            'role' : 'villager',
+            'death': False,
+        }
+        self.players['192.168.1.12'] = {
+            'name' : 'Giuggiola',
+            'role' : 'villager',
+            'death': False,
+        }
+        self.players['192.168.1.12'] = {
+            'name' : 'Sdrumello',
+            'role' : 'seer',
+            'death': True,
+        }
+        # ROLES
+        self.rolesData = dict()
+        self.rolesData['werewolf'] = {
+            'name' : 'Lupo Mannaro',
+            'race' : 'Mostro',
+            'team' : 'Mostro',
+        }
+        self.rolesData['villager'] = {
+            'name' : 'Contadino',
+            'race' : 'Umano',
+            'team' : 'Umano',
+        }
+        self.rolesData['seer'] = {
+            'name' : 'Veggente',
+            'race' : 'Umano',
+            'team' : 'Umano',
+        }
+        # NIGHTPHASES
+        self.nightPhases =  [('seer',False), ('werewolf',True)]
 
 
-    def addPlayer(self, id, name):
-        """Returns True if the addition of the player was successful"""
-        # check if the phase is valid
-        if self.phase != GamePhase.waitForPeoples:
-            return False
+    def _newGame(self):
+        tmp = list(self.players.items())
+        random.shuffle(tmp)
+        self.players = dict(tmp)
+
+
+    def getUsersId(self):
+        """Returns the list of players + master"""
+        playersId = list(self.players.keys())
+        if self.master:
+            return playersId + [self.master]
+        return playersId
+
+
+    def isAlreadyLogged(self, id):
+        """Returns True if the user is already present"""
+        return id in self.getUsersId()
+
+
+    def lobbyIsFull(self):
+        """Returns True if the lobby is full"""
+        return len(self.getUsersId()) == len(self.rolesList)+1
+
+
+    def addUser(self, id, name):
+        """Returns True if the addition of the user was successful"""
         # check if the user is alredy register
-        if (id in self.players) or (id == self.master):
+        if id in self.getUsersId():
             return False
         # check if the name is valid
-        if name == None or name == '' or name.lower() in [p.lower() for p in self.players.keys()]:
+        if name == None or name == '' or name.lower() in [p['name'].lower() for p in self.players.values()]:
             return False
-        # check if all roles are just assigned
-        if self.playerCounter == len(self.rolesSelected):
-            self.allPlayersAreAssigned = True
-        # check if master
+
+        # add user
         if name.lower() == 'master':
+            if self.master:
+                return False
             self.master = id
-            self.masterIsAssigned = True
-            # Check if game can start
-            if self.allPlayersAreAssigned:
-                self.newGame()
-            return True
-        # check if add player
-        if self.allPlayersAreAssigned:
-            return False
-        # add player
-        self.players[id] = dict()
-        self.players[id]['name'] = name
-        self.players[id]['death'] = False
-        self.players[id]['role'] = self.rolesSelected[self.playerCounter]
-        self.playerCounter += 1
-        # check if all roles are assigned
-        if self.playerCounter == len(self.rolesSelected):
-            self.allPlayersAreAssigned = True
+        else:
+            if len(self.players) == len(self.rolesList):
+                return False
+            self.players[id] = {
+                'name'     : name,
+                'role'     : self.rolesList[self._userCounter],
+                'death'    : False,
+            }
+            self._userCounter += 1
+            
         # Check if the game can start
-        if self.allPlayersAreAssigned and self.masterIsAssigned:
-            self.newGame()
+        if self.lobbyIsFull():
+            self._newGame()
         return True
 
 
-    def getPlayersName(self):
-        names = [v['name'] for k, v in self.players.items()]
-        if self.masterIsAssigned:
-            return names + ['master']
-        return names
+    def getUsersNames(self):
+        playersName = [v['name'] for v in self.players.values()]
+        if self.master:
+            return ['master'] + playersName
+        return playersName
     
 
     def getProgressLobbyStr(self):
-        return f'{int(len(self.getPlayersName())/(len(self.rolesSelected)+1)*100)}%'
+        return f'{100 * len(self.getUsersId()) // (len(self.rolesList)+1)}%'
+
+    
+    def isMaster(self, id):
+        return id != None and self.master == id
+    
+
+    def getNameOf(self, id):
+        return self.players[id]['name']
 
 
-    def isStart(self):
-        return self.phase == GamePhase.start
+    def getRoleDataOf(self, id):
+        playerRole = self.players[id]['role']
+        return self.rolesData[playerRole]
 
 
-    # Player phase
     def getPlayersSimilarTo(self, id):
         playersSimilar = list()
         playerRole = self.players[id]['role']
-        if self.isVisibleForSimilars(playerRole):
-            for p, info in self.players.items():
-                if info['role'] == playerRole and p != id:
-                    playersSimilar.append(p)
+        for p, info in self.players.items():
+            if info['role'] == playerRole and p != id:
+                playersSimilar.append(p)
         return playersSimilar
 
 
-    def getRoleOf(self, id):
-        return self.players[id]['role']
-
-    
     def getPlayers(self):
         return self.players
 
 
-    # Finish
-    def isFinish(self):
-        return self.phase == GamePhase.finish
+    def getRolesData(self):
+        return self.rolesData
+
+    
+    def getNightPhases(self):
+        return self.nightPhases
 
 
-    def newGame(self):
-        self.phase = GamePhase.init
-        tmp = list(self.players.items())
-        random.shuffle(tmp)
-        self.players = dict(tmp)
-        self.phase = GamePhase.start
+    def processNightData(self, data):
+        print(data)     
 
 
 
@@ -158,79 +171,8 @@ class Game:
 if __name__ == "__main__":
     g = Game()
 
-    id_a = '192.168.1.130'
-    id_b = '192.168.1.120'
-    id_master = '192.168.1.110'
-    role = 'werewolf'
-
-    assert not g.isAlreadyLogged(id_master)
-    assert not g.isAlreadyLogged(id_a)
-    assert g.getNameOf(id_master) =='UnkownName'
-    assert g.getNameOf(id_a) == 'UnkownName'
-
-    assert not g.isStart()
-    assert g.phase == GamePhase.waitForPeoples
-    assert g.rolesSelected == [role, role]
-    assert g.players == {}
-    assert not g.masterIsAssigned
-    assert not g.allPlayersAreAssigned
-
-    res = g.addPlayer(id_a, 'a')
-    assert res
-    assert g.phase == GamePhase.waitForPeoples
-    assert g.players == {id_a: {'name':'a', 'death':False, 'role':role}}
-    assert not g.masterIsAssigned
-    assert not g.allPlayersAreAssigned
-
-    res = g.addPlayer(id_a, 'a')
-    assert not res
-    assert g.phase == GamePhase.waitForPeoples
-    assert g.players == {id_a: {'name':'a', 'death':False, 'role':role}}
-    assert not g.masterIsAssigned
-    assert not g.allPlayersAreAssigned
-
-    res = g.addPlayer(id_b, 'b')
-    assert res
-    assert g.phase == GamePhase.waitForPeoples
-    assert g.players == {id_a: {'name':'a', 'death':False, 'role':role}, \
-                         id_b: {'name':'b', 'death':False, 'role':role}}
-    assert not g.masterIsAssigned
-    assert g.allPlayersAreAssigned
-    assert len(g.getPlayersName()) == 2
-    assert 'a' in g.getPlayersName()
-    assert 'b' in g.getPlayersName()
-
-    res = g.addPlayer('192.168.1.140', 'c')
-    assert not res
-    assert g.phase == GamePhase.waitForPeoples
-    assert g.players == {id_a: {'name':'a', 'death':False, 'role':role}, \
-                         id_b: {'name':'b', 'death':False, 'role':role}}
-    assert not g.masterIsAssigned
-    assert g.allPlayersAreAssigned
-
-    assert g.master == None
-    res = g.addPlayer(id_master, 'master')
-    assert res
-    assert g.phase == GamePhase.start
-    assert g.players == {id_a: {'name':'a', 'death':False, 'role':role}, \
-                         id_b: {'name':'b', 'death':False, 'role':role}}
-    assert g.master == id_master
-    assert g.masterIsAssigned
-    assert g.allPlayersAreAssigned
-    assert g.isStart()
-    assert len(g.getPlayersName()) == 3
-    assert 'a' in g.getPlayersName()
-    assert 'b' in g.getPlayersName()
-    assert 'master' in g.getPlayersName()
-
-
-    assert g.getPlayersSimilarTo(id_a) == [id_b]
-    assert g.getPlayersSimilarTo(id_b) == [id_a]
-    assert g.getRoleOf(id_a) == 'werewolf'
-    assert g.isAlreadyLogged(id_master)
-    assert g.isAlreadyLogged(id_a)
-    assert g.getNameOf(id_master) =='master'
-    assert g.getNameOf(id_a) == 'a'
+    print(g.players)
+    print(g.getNightPhases())
 
 
     print("OK all is correct")

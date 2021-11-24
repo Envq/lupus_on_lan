@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="text-center p-2">
+  <h3 class="fw-bold text-primary">It's Night!</h3>
+</div>
+
+<form class="m-4" method="POST" action="/master_day">
+  {% for (phase,isActive) in nightPhases %}
+  <div class="row">
+    <div class="col fw-bold text-end">{{ phase }}</div>
+
+    {% if isActive %}
+    <select class="col form-select" aria-label="Default select example" name="{{ phase }}">
+      <option selected></option>
+      {% for (id,info) in players.items() %}
+      <option value="{{ id }}">{{ info['name'] }}</option>
+      {% endfor %}
+    </select>
+
+    {% else %}
+    <select class="col form-select" aria-label="Default select example" disabled>
+      <option selected></option>
+    </select>
+    
+    {% endif %}
+  </div>
+  {% endfor %}
+  <div class="text-center m-4">
+    <input class="btn btn-primary" 
+            type="submit" 
+            value="finish">
+  </div>
+</form>
+
+{% endblock content %}
