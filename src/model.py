@@ -9,8 +9,9 @@ class Game:
     def __init__(self):
         self.dataManager  = DataManager()
         self.rolesData    = self.dataManager.getRolesAvailables()
+        self.status       = self.dataManager.getStatusAvailables(self.rolesData)
         self.rolesList    = self.dataManager.getPlayersRoles()
-        self.nightPhases  = self.dataManager.getNightPhases(self.rolesList)
+        self.nightPhases  = self.dataManager.getNightPhasesAvailables(self.rolesList)
         self.players      = dict()
         self.master       = None
         self._userCounter = 0 
@@ -19,7 +20,7 @@ class Game:
 
     def _addFake(self):
         # ROLES_LIST
-        self.rolesList = ['werewolf', 'villager', 'seer']
+        self.rolesList = ['werewolf', 'villager', 'villager', 'seer']
         # PLAYERS
         self.players = dict()
         self.players['192.168.1.10'] = {
@@ -37,8 +38,8 @@ class Game:
             'role' : 'villager',
             'death': False,
         }
-        self.players['192.168.1.12'] = {
-            'name' : 'Sdrumello',
+        self.players['192.168.1.13'] = {
+            'name' : 'SdrumelloBelloElloElloEllo',
             'role' : 'seer',
             'death': True,
         }
@@ -59,8 +60,10 @@ class Game:
             'race' : 'Umano',
             'team' : 'Umano',
         }
+        # STATUS
+        self.status = ['morto', 'unto', 'protetto', 'gufato']
         # NIGHTPHASES
-        self.nightPhases =  [('seer',False), ('werewolf',True)]
+        self.nightPhases = [('seer',False), ('werewolf',True)]
 
 
     def _newGame(self):
@@ -162,8 +165,13 @@ class Game:
         return self.nightPhases
 
 
+    def getStatus(self):
+        return self.status
+
+
     def processNightData(self, data):
         print(data)     
+
 
 
 

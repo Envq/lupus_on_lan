@@ -59,10 +59,16 @@ def lobby():
                                     role           = app.game.getRoleDataOf(userIP),
                                     playersSimilar = app.game.getPlayersSimilarTo(userIP))
         else:
-            return render_template("master_night.html",
-                                    players     = app.game.getPlayers(),
-                                    roles       = app.game.getRolesData(),
-                                    nightPhases = app.game.getNightPhases())
+            # return render_template("master_night.html",
+            #                         players     = app.game.getPlayers(),
+            #                         roles       = app.game.getRolesData(),
+            #                         nightPhases = app.game.getNightPhases())
+            return render_template("master.html",
+                                    word1   = ['a', 'b', 'c', 'd'],
+                                    word2   = ['#a', '#b', '#c', '#d'],
+                                    status  = app.game.getStatus(),
+                                    players = app.game.getPlayers(),
+                                    roles   = app.game.getRolesData())
     return goToLobby(userIP)
 
 

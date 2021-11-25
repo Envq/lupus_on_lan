@@ -15,11 +15,13 @@ class DataManager:
         for role, info in self.rolesData.items():
             if not info['num'] == 0:
                 roles[role] = {
-                    'name'        : info['name'],
-                    'race'        : info['race'],
-                    'team'        : info['team'],
-                    'description' : info['playerDescription'],
-                    'image'       : 'images/' + info['image'],
+                    'name'         : info['name'],
+                    'race'         : info['race'],
+                    'team'         : info['team'],
+                    'action'       : info['action'],
+                    'targetStatus' : info['targetStatus'],
+                    'description'  : info['playerDescription'],
+                    'image'        : 'images/' + info['image'],
                 }
         return roles
     
@@ -32,6 +34,15 @@ class DataManager:
                 roles.append(k)
         return roles
     
+    
+    def getStatusAvailables(self, rolesData_availables):
+        status = list()
+        for info in rolesData_availables.values():
+            r_status = info['targetStatus'] 
+            if r_status!= "":
+                status.append(r_status)
+        return status
+
 
     def _getRolesOrder(self):
         order = dict()
@@ -42,7 +53,7 @@ class DataManager:
         return order
 
 
-    def getNightPhases(self, roles_availables):
+    def getNightPhasesAvailables(self, roles_availables):
         """Return a ordered list of phase from the selected roles."""
         phases = list()
         for priority, roles in self._getRolesOrder().items():
@@ -51,6 +62,8 @@ class DataManager:
                     if r in roles_availables:
                         phases.append((r, True))
         return phases
+
+
 
 # TESTS
 if __name__ == "__main__":
@@ -62,11 +75,14 @@ if __name__ == "__main__":
     print("getPlayersRoles")
     print(dm.getPlayersRoles())
     print("---")
+    print("getStatusAvailables")
+    print(dm.getStatusAvailables(dm.getRolesAvailables()))
+    print("---")
     print("_getRolesOrder")
     print(dm._getRolesOrder())
     print("---")
     print("getNightPhases")
-    print(dm.getNightPhases(dm.getPlayersRoles()))
+    print(dm.getNightPhasesAvailables(dm.getPlayersRoles()))
     print("---")
 
     print("OK all is correct")

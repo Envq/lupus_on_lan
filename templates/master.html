@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <!-- Order:
+    mago        x    stregato
+    mitomanete  -
+    veggente    -
+    medium      -
+    gufo        x    gufato
+    guardia     x    protetto     
+    lupo        x    morto        unico
+    untore      x    unto
+   -->
+
+<script>
+  function addStatus(statusName, statusId) {
+    badgeId = statusName + statusId
+    if (!document.getElementById(badgeId)) {
+      var badge = document.createElement("p");
+      badge.id = badgeId
+      badge.className = "badge rounded-pill bg-primary m-1 text-center"
+      badge.textContent = statusName
+      document.getElementById(statusId).appendChild(badge);
+    }
+  }
+</script>
+
+
+<div class="text-center p-2">
+  <h3 class="fw-bold text-primary">Master</h3>
+</div>
+
+<div id="accordion">
+  {% for info in players.values() %}
+    <div class="card">
+      <!-- HEADER -->
+      <div class="card-header px-1 py-1">
+        <div class="row p-0 m-0">
+          <!-- UserName Container-->
+          <div class="col-4 m-0 p-0">
+            <a class="btn text-start w-100 text-truncate m-0 px-0" data-bs-toggle="collapse" href="#{{ info['name'] }}">
+              {{ info['name'] }}
+            </a>
+          </div>   
+          
+          <!-- Status Container -->
+          <div class="col d-flex flex-wrap m-0 p-0" id="{{ info['name'] }}-status"></div>
+
+          <!-- DropDown Container -->
+          <div class="col-2 dropdown text-end m-0 p-0">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"></button>
+            <ul class="dropdown-menu">
+              {% for s in status %}
+              <li><p class="dropdown-item" onclick="addStatus('{{ s }}', '{{ info['name'] }}-status')">{{ s }}</p></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD COLLAPSED -->
+      <div id="{{ info['name'] }}" class="collapse" data-bs-parent="#accordion">
+        <div class="card-body">
+          <div class="row fw-bold">
+            <div class="col">ROLE</div>
+            <div class="col">RACE</div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>{{ roles[info['role']]['name'] }}</p>
+            </div>
+            <div class="col">
+              <p>{{ roles[info['role']]['race'] }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<form class="text-center m-4" method="POST" action="/lobby">
+  <input type="submit" class="btn btn-primary" value="DEBUG-RELOAD">
+</form>
+
+{% endblock content %}
