@@ -13,18 +13,19 @@
    -->
 
 <script>
-  function addStatus(statusName, statusId) {
-    badgeId = statusName + statusId
+  function addStatus(name, color, id) {
+    badgeId = name + id
     if (!document.getElementById(badgeId)) {
       var badge = document.createElement("p");
       badge.id = badgeId
-      badge.className = "badge rounded-pill bg-primary m-1 text-center"
-      badge.textContent = statusName
-      document.getElementById(statusId).appendChild(badge);
+      badge.className = "badge rounded-pill m-1 p-2 text-center"
+      badge.style.background = color
+      badge.textContent = name
+      badge.onclick = function () {this.parentElement.removeChild(this);};
+      document.getElementById(id).appendChild(badge);
     }
   }
 </script>
-
 
 <div class="text-center p-2">
   <h3 class="fw-bold text-primary">Master</h3>
@@ -50,8 +51,8 @@
           <div class="col-2 dropdown text-end m-0 p-0">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"></button>
             <ul class="dropdown-menu">
-              {% for s in status %}
-              <li><p class="dropdown-item" onclick="addStatus('{{ s }}', '{{ info['name'] }}-status')">{{ s }}</p></li>
+              {% for (name, color) in statusData %}
+              <li><p class="dropdown-item" onclick="addStatus('{{ name }}', '{{ color }}', '{{ info['name'] }}-status')">{{ name }}</p></li>
               {% endfor %}
             </ul>
           </div>

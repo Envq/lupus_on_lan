@@ -8,10 +8,10 @@ class Game:
     # DEPRECED
     def __init__(self):
         self.dataManager  = DataManager()
-        self.rolesData    = self.dataManager.getRolesAvailables()
-        self.status       = self.dataManager.getStatusAvailables(self.rolesData)
-        self.rolesList    = self.dataManager.getPlayersRoles()
-        self.nightPhases  = self.dataManager.getNightPhasesAvailables(self.rolesList)
+        self.rolesData    = self.dataManager.getRolesDataAvailables()
+        self.statusData   = self.dataManager.getStatusAvailables(self.rolesData)
+        self.playersRoles = self.dataManager.getPlayersRoles()
+        self.nightPhases  = self.dataManager.getOrderedNightPhases(self.playersRoles)
         self.players      = dict()
         self.master       = None
         self._userCounter = 0 
@@ -20,7 +20,7 @@ class Game:
 
     def _addFake(self):
         # ROLES_LIST
-        self.rolesList = ['werewolf', 'villager', 'villager', 'seer']
+        self.playersRoles = ['werewolf', 'villager', 'villager', 'seer']
         # PLAYERS
         self.players = dict()
         self.players['192.168.1.10'] = {
@@ -61,7 +61,7 @@ class Game:
             'team' : 'Umano',
         }
         # STATUS
-        self.status = ['morto', 'unto', 'protetto', 'gufato']
+        self.statusData = self.dataManager._getAllStatus()
         # NIGHTPHASES
         self.nightPhases = [('seer',False), ('werewolf',True)]
 
@@ -87,7 +87,7 @@ class Game:
 
     def lobbyIsFull(self):
         """Returns True if the lobby is full"""
-        return len(self.getUsersId()) == len(self.rolesList)+1
+        return len(self.getUsersId()) == len(self.playersRoles)+1
 
 
     def addUser(self, id, name):
@@ -105,11 +105,11 @@ class Game:
                 return False
             self.master = id
         else:
-            if len(self.players) == len(self.rolesList):
+            if len(self.players) == len(self.playersRoles):
                 return False
             self.players[id] = {
                 'name'     : name,
-                'role'     : self.rolesList[self._userCounter],
+                'role'     : self.playersRoles[self._userCounter],
                 'death'    : False,
             }
             self._userCounter += 1
@@ -128,7 +128,7 @@ class Game:
     
 
     def getProgressLobbyStr(self):
-        return f'{100 * len(self.getUsersId()) // (len(self.rolesList)+1)}%'
+        return f'{100 * len(self.getUsersId()) // (len(self.playersRoles)+1)}%'
 
     
     def isMaster(self, id):
@@ -165,8 +165,8 @@ class Game:
         return self.nightPhases
 
 
-    def getStatus(self):
-        return self.status
+    def getStatusData(self):
+        return self.statusData
 
 
     def processNightData(self, data):

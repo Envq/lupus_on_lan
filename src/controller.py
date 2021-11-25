@@ -59,27 +59,8 @@ def lobby():
                                     role           = app.game.getRoleDataOf(userIP),
                                     playersSimilar = app.game.getPlayersSimilarTo(userIP))
         else:
-            # return render_template("master_night.html",
-            #                         players     = app.game.getPlayers(),
-            #                         roles       = app.game.getRolesData(),
-            #                         nightPhases = app.game.getNightPhases())
             return render_template("master.html",
-                                    word1   = ['a', 'b', 'c', 'd'],
-                                    word2   = ['#a', '#b', '#c', '#d'],
-                                    status  = app.game.getStatus(),
-                                    players = app.game.getPlayers(),
-                                    roles   = app.game.getRolesData())
-    return goToLobby(userIP)
-
-
-@app.route("/master_day", methods=['GET', 'POST'])
-def masterDay():
-    userIP = request.remote_addr
-    if app.game.isMaster(userIP):
-        # Check if there is a message
-        if request.method == 'POST':
-            app.game.processNightData(dict(request.form))
-            return render_template("master_day.html",
-                                    players     = app.game.getPlayers(),
-                                    roles       = app.game.getRolesData())
+                                    statusData = app.game.getStatusData(),
+                                    players    = app.game.getPlayers(),
+                                    roles      = app.game.getRolesData())
     return goToLobby(userIP)

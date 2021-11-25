@@ -7,9 +7,26 @@ class DataManager:
         # load rolesData
         with open(settings_path) as file:
             self.rolesData = json.load(file)
-        
 
-    def getRolesAvailables(self):
+
+    def _getAllRolesData(self):
+        """Return the dictionary with the informations of all the selected roles."""
+        roles = dict()
+        for role, info in self.rolesData.items():
+            if not info['num'] == 0:
+                roles[role] = {
+                    'name'         : info['name'],
+                    'race'         : info['race'],
+                    'team'         : info['team'],
+                    'action'       : info['action'],
+                    'targetStatus' : info['targetStatus'],
+                    'description'  : info['playerDescription'],
+                    'image'        : 'images/' + info['image'],
+                }
+        return roles
+    
+
+    def getRolesDataAvailables(self):
         """Return the dictionary with the informations of all the selected roles."""
         roles = dict()
         for role, info in self.rolesData.items():
@@ -34,17 +51,26 @@ class DataManager:
                 roles.append(k)
         return roles
     
-    
-    def getStatusAvailables(self, rolesData_availables):
+
+    def _getAllStatus(self):
         status = list()
-        for info in rolesData_availables.values():
-            r_status = info['targetStatus'] 
-            if r_status!= "":
-                status.append(r_status)
+        for info in self.rolesData.values():
+            statusData = info['targetStatus'] 
+            if statusData:
+                status.append((statusData[0],statusData[1]))
         return status
 
 
-    def _getRolesOrder(self):
+    def getStatusAvailables(self, rolesDataAvailables):
+        status = list()
+        for info in rolesDataAvailables.values():
+            r_status = info['targetStatus'] 
+            if r_status:
+                status.append((r_status[0],r_status[1]))
+        return status
+
+
+    def _getAllOrder(self):
         order = dict()
         for i in range(len(self.rolesData)):
             order[i] = list()
@@ -53,13 +79,13 @@ class DataManager:
         return order
 
 
-    def getNightPhasesAvailables(self, roles_availables):
+    def getOrderedNightPhases(self, playersRoles):
         """Return a ordered list of phase from the selected roles."""
         phases = list()
-        for priority, roles in self._getRolesOrder().items():
+        for priority, roles in self._getAllOrder().items():
             if roles != [] and priority != 0:
                 for r in roles:
-                    if r in roles_availables:
+                    if r in playersRoles:
                         phases.append((r, True))
         return phases
 
@@ -69,20 +95,26 @@ class DataManager:
 if __name__ == "__main__":
     dm = DataManager(settings_path="roles.json")
 
-    print('getRolesAvailables')
-    print(dm.getRolesAvailables())
+    print('_getAllRolesData')
+    print(dm._getAllRolesData())
+    print("---")
+    print('getRolesDataAvailables')
+    print(dm.getRolesDataAvailables())
     print("---")
     print("getPlayersRoles")
     print(dm.getPlayersRoles())
     print("---")
+    print("_getAllStatus")
+    print(dm._getAllStatus())
+    print("---")
     print("getStatusAvailables")
-    print(dm.getStatusAvailables(dm.getRolesAvailables()))
+    print(dm.getStatusAvailables(dm.getRolesDataAvailables()))
     print("---")
-    print("_getRolesOrder")
-    print(dm._getRolesOrder())
+    print("_getAllOrder")
+    print(dm._getAllOrder())
     print("---")
-    print("getNightPhases")
-    print(dm.getNightPhasesAvailables(dm.getPlayersRoles()))
+    print("getOrderedNightPhases")
+    print(dm.getOrderedNightPhases(dm.getPlayersRoles()))
     print("---")
 
     print("OK all is correct")
