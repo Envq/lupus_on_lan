@@ -20,50 +20,31 @@ class Game:
 
     def _addFake(self):
         # ROLES_LIST
-        self.playersRoles = ['werewolf', 'villager', 'villager', 'seer']
+        self.playersRoles = ['werewolf'] * 16
         # PLAYERS
         self.players = dict()
-        self.players['192.168.1.10'] = {
-            'name' : 'Gino',
-            'role' : 'werewolf',
-            'death': False,
-        }
-        self.players['192.168.1.11'] = {
-            'name' : 'Ezio',
-            'role' : 'villager',
-            'death': False,
-        }
-        self.players['192.168.1.12'] = {
-            'name' : 'Giuggiola',
-            'role' : 'villager',
-            'death': False,
-        }
-        self.players['192.168.1.13'] = {
-            'name' : 'SdrumelloBelloElloElloEllo',
-            'role' : 'seer',
-            'death': True,
-        }
+        self.players['192.168.1.1']  = {'name' : 'A', 'role' : 'werewolf',      'race' : 'Mostro'}
+        self.players['192.168.1.2']  = {'name' : 'B', 'role' : 'seer',          'race' : 'Umano'}
+        self.players['192.168.1.3']  = {'name' : 'C', 'role' : 'villager',      'race' : 'Umano'}
+        self.players['192.168.1.4']  = {'name' : 'D', 'role' : 'medium',        'race' : 'Umano'}
+        self.players['192.168.1.5']  = {'name' : 'E', 'role' : 'possessed',     'race' : 'Umano'}
+        self.players['192.168.1.6']  = {'name' : 'F', 'role' : 'bodyguard',     'race' : 'Umano'}
+        self.players['192.168.1.7']  = {'name' : 'G', 'role' : 'owlman',        'race' : 'Umano'}
+        self.players['192.168.1.8']  = {'name' : 'H', 'role' : 'freemasons',    'race' : 'Umano'}
+        self.players['192.168.1.9']  = {'name' : 'I', 'role' : 'werehamster',   'race' : 'Umano'}
+        self.players['192.168.1.10'] = {'name' : 'J', 'role' : 'mythomaniac',   'race' : 'Umano'}
+        self.players['192.168.1.11'] = {'name' : 'K', 'role' : 'mage',          'race' : 'Umano'}
+        self.players['192.168.1.12'] = {'name' : 'L', 'role' : 'infector',      'race' : 'Mostro'}
+        self.players['192.168.1.13'] = {'name' : 'M', 'role' : 'villager',      'race' : 'Umano'}
+        self.players['192.168.1.14'] = {'name' : 'N', 'role' : 'werewolf',      'race' : 'Mostro'}
+        self.players['192.168.1.15'] = {'name' : 'O', 'role' : 'werewolf',      'race' : 'Mostro'}
+        self.players['192.168.1.16'] = {'name' : 'P', 'role' : 'werewolf',      'race' : 'Mostro'}
         # ROLES
-        self.rolesData = dict()
-        self.rolesData['werewolf'] = {
-            'name' : 'Lupo Mannaro',
-            'race' : 'Mostro',
-            'team' : 'Mostro',
-        }
-        self.rolesData['villager'] = {
-            'name' : 'Contadino',
-            'race' : 'Umano',
-            'team' : 'Umano',
-        }
-        self.rolesData['seer'] = {
-            'name' : 'Veggente',
-            'race' : 'Umano',
-            'team' : 'Umano',
-        }
+        self.rolesData = self.dataManager._getAllRolesData()
         # STATUS
         self.statusData = self.dataManager._getAllStatus()
         # NIGHTPHASES
-        self.nightPhases = [('seer',False), ('werewolf',True)]
+        self.nightPhases = self.dataManager._getAllNightPhases()
 
 
     def _newGame(self):
@@ -154,7 +135,11 @@ class Game:
 
 
     def getPlayers(self):
-        return self.players
+        return sorted(self.players.values(), key=lambda x: x['role'])
+    
+
+    def getPlayersNames(self):
+        return [p['name'] for p in self.players.values()]
 
 
     def getRolesData(self):
@@ -179,8 +164,8 @@ class Game:
 if __name__ == "__main__":
     g = Game()
 
-    print(g.players)
-    print(g.getNightPhases())
+    for p in g.getPlayersNames():
+        print(p)
 
 
     print("OK all is correct")

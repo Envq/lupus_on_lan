@@ -60,7 +60,9 @@ def lobby():
                                     playersSimilar = app.game.getPlayersSimilarTo(userIP))
         else:
             return render_template("master.html",
-                                    statusData = app.game.getStatusData(),
-                                    players    = app.game.getPlayers(),
-                                    roles      = app.game.getRolesData())
+                                    nightPhases  = app.game.getNightPhases(),
+                                    statusData   = app.game.getStatusData(),
+                                    players      = app.game.getPlayers(),
+                                    playersNames = app.game.getPlayersNames(),
+                                    roles        = app.game.getRolesData())
     return goToLobby(userIP)

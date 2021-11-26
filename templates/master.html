@@ -1,87 +1,147 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <!-- Order:
-    mago        x    stregato
-    mitomanete  -
-    veggente    -
-    medium      -
-    gufo        x    gufato
-    guardia     x    protetto     
-    lupo        x    morto        unico
-    untore      x    unto
-   -->
-
 <script>
+  function phaseDone(id) {
+    var curr_class = String(document.getElementById(id).className);
+    if (!curr_class.includes("text-muted")) {
+      document.getElementById(id).className = curr_class + " text-muted text-decoration-line-through";
+    } else {
+      document.getElementById(id).className = curr_class.replace(' text-muted text-decoration-line-through','');
+    }
+  }
+
   function addStatus(name, color, id) {
-    badgeId = name + id
+    var badgeId = name + id;
     if (!document.getElementById(badgeId)) {
       var badge = document.createElement("p");
-      badge.id = badgeId
-      badge.className = "badge rounded-pill m-1 p-2 text-center"
-      badge.style.background = color
-      badge.textContent = name
+      badge.id = badgeId;
+      badge.className = "badge rounded-pill m-1 p-2 text-center";
+      badge.style.background = color;
+      badge.textContent = name;
       badge.onclick = function () {this.parentElement.removeChild(this);};
       document.getElementById(id).appendChild(badge);
     }
   }
+
+  function resetStatus(ids) {
+    for (const id of ids) {
+      statusId = 'status-' + id;
+      document.getElementById(statusId).innerHTML = "";
+    }
+  }
+
+  function killPlayer(id) {
+    var rowId = 'row-'+id
+    var dropdownContainerId = 'dropdownContainer-'+id
+    var menuButtonId = 'menuButton-'+id
+    var menuId = 'menu-'+id
+    var dropupContainerId = 'dropupContainer-'+id
+    var deadContainer = document.getElementById('dead-container')
+    // Move row
+    deadContainer.insertBefore(document.getElementById(rowId), deadContainer.firstChild);
+    // Hide dropdown container
+    document.getElementById(dropdownContainerId).setAttribute("hidden", "")
+    // Show dropdup container
+    document.getElementById(dropupContainerId).removeAttribute("hidden")
+  }
+
+  function resurrectPlayer(id) {
+    var rowId = 'row-'+id
+    var dropdownContainerId = 'dropdownContainer-'+id
+    var menuButtonId = 'menuButton-'+id
+    var menuId = 'menu-'+id
+    var dropupContainerId = 'dropupContainer-'+id
+    var aliveContainer = document.getElementById('alive-container')
+    // Move row
+    aliveContainer.appendChild(document.getElementById(rowId));
+    // Hide dropup container
+    document.getElementById(dropupContainerId).setAttribute("hidden", "")
+    // Show dropdown container
+    document.getElementById(dropdownContainerId).removeAttribute("hidden")
+  }
+
 </script>
 
+
+<!-- PHASES ORDER -->
 <div class="text-center p-2">
-  <h3 class="fw-bold text-primary">Master</h3>
+  <h4 class="fw-bold text-primary">Night Phases</h4>
 </div>
 
-<div id="accordion">
-  {% for info in players.values() %}
-    <div class="card">
-      <!-- HEADER -->
-      <div class="card-header px-1 py-1">
-        <div class="row p-0 m-0">
-          <!-- UserName Container-->
-          <div class="col-4 m-0 p-0">
-            <a class="btn text-start w-100 text-truncate m-0 px-0" data-bs-toggle="collapse" href="#{{ info['name'] }}">
-              {{ info['name'] }}
-            </a>
-          </div>   
-          
-          <!-- Status Container -->
-          <div class="col d-flex flex-wrap m-0 p-0" id="{{ info['name'] }}-status"></div>
-
-          <!-- DropDown Container -->
-          <div class="col-2 dropdown text-end m-0 p-0">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"></button>
-            <ul class="dropdown-menu">
-              {% for (name, color) in statusData %}
-              <li><p class="dropdown-item" onclick="addStatus('{{ name }}', '{{ color }}', '{{ info['name'] }}-status')">{{ name }}</p></li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- CARD COLLAPSED -->
-      <div id="{{ info['name'] }}" class="collapse" data-bs-parent="#accordion">
-        <div class="card-body">
-          <div class="row fw-bold">
-            <div class="col">ROLE</div>
-            <div class="col">RACE</div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <p>{{ roles[info['role']]['name'] }}</p>
-            </div>
-            <div class="col">
-              <p>{{ roles[info['role']]['race'] }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div>
+  {% for phase in nightPhases %}
+  <div class="row mx-5 my-1 px-3 rounded-3" id="{{ phase }}" onclick="phaseDone('{{ phase }}')">
+    <p class="text-center m-0 p-0 fw-bold">{{ roles[phase]['name'] }}</p>
+  </div>
   {% endfor %}
 </div>
 
-<form class="text-center m-4" method="POST" action="/lobby">
-  <input type="submit" class="btn btn-primary" value="DEBUG-RELOAD">
+<form class="text-center m-4">
+  <input type="submit" class="btn btn-primary" value="DEBUG RELOAD">
 </form>
+
+<div class="text-center m-4">
+  <div class="btn btn-primary" onclick="resetStatus({{ playersNames }})">Reset</div>
+</div>
+
+<hr>
+
+
+<!-- PLAYERS ALIVE-->
+<div class="text-center p-2">
+  <h4 class="fw-bold text-primary">Players Alive</h4>
+</div>
+
+<div class="container m-0 p-2 bg-light rounded-3" id="alive-container">
+  <!-- ALIVE PLAYER ROWS -->
+  {% for player in players %}
+  <div class="row m-0 p-0" id="row-{{ player['name'] }}">
+    <!-- User Container -->
+    <div class="col-4 m-0 p-0 fs-6" id="alive-{{ player['name'] }}">
+      <div class="row m-0 px-0">
+        <p class="m-0 p-0 text-truncate fw-bold">{{ player['name'] }}</p>
+      </div>
+      <div class="row m-0 px-0">
+        <p class="m-0 p-0 text-truncate siz">{{ roles[player['role']]['name'] }}</p>
+      </div>
+      <div class="row m-0 px-0">
+        <p class="m-0 p-0 text-truncate">{{ player['race'] }}</p>
+      </div>
+    </div>
+            
+    <!-- Status Container -->
+    <div class="col d-flex flex-wrap m-0 p-0" id="status-{{ player['name'] }}"></div>
+
+    <!-- DropDown Container -->
+    <div class="col-1 dropdown text-end m-0 p-0" id="dropdownContainer-{{ player['name'] }}">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" id="menuButton-{{ player['name'] }}"></button>
+      <ul class="dropdown-menu" id="menu-{{ player['name'] }}">
+        <li><p class="dropdown-item" onclick="killPlayer('{{ player['name'] }}')">DEAD</p></li>
+        {% for (name, color) in statusData %}
+        <li><p class="dropdown-item" onclick="addStatus('{{ name }}', '{{ color }}', 'status-{{ player['name'] }}')">{{ name }}</p></li>
+        {% endfor %}
+      </ul>
+    </div>
+    
+    <!-- DropUp Container HIDDEN -->
+    <div class="col-1 dropup text-end m-0 p-0" id="dropupContainer-{{ player['name'] }}" hidden>
+      <div class="btn btn-danger dropdown-toggle" onclick="resurrectPlayer('{{ player['name'] }}')"></div>
+    </div>
+    
+    <hr class="m-1 p-0">
+  </div>
+  {% endfor %}
+</div>
+
+
+<!-- PLAYERS DEAD -->
+<div class="text-center p-2" id="dead-title">
+  <h4 class="fw-bold text-danger">Dead Players</h4>
+</div>
+
+<div class="container m-0 p-2 bg-light" id="dead-container">
+  <!-- move here dead-player rows -->
+</div>
 
 {% endblock content %}

@@ -13,16 +13,15 @@ class DataManager:
         """Return the dictionary with the informations of all the selected roles."""
         roles = dict()
         for role, info in self.rolesData.items():
-            if not info['num'] == 0:
-                roles[role] = {
-                    'name'         : info['name'],
-                    'race'         : info['race'],
-                    'team'         : info['team'],
-                    'action'       : info['action'],
-                    'targetStatus' : info['targetStatus'],
-                    'description'  : info['playerDescription'],
-                    'image'        : 'images/' + info['image'],
-                }
+            roles[role] = {
+                'name'         : info['name'],
+                'race'         : info['race'],
+                'team'         : info['team'],
+                'action'       : info['action'],
+                'targetStatus' : info['targetStatus'],
+                'description'  : info['playerDescription'],
+                'image'        : 'images/' + info['image'],
+            }
         return roles
     
 
@@ -79,14 +78,22 @@ class DataManager:
         return order
 
 
-    def getOrderedNightPhases(self, playersRoles):
+    def _getAllNightPhases(self):
         """Return a ordered list of phase from the selected roles."""
         phases = list()
         for priority, roles in self._getAllOrder().items():
             if roles != [] and priority != 0:
                 for r in roles:
-                    if r in playersRoles:
-                        phases.append((r, True))
+                    phases.append(r)
+        return phases
+
+
+    def getOrderedNightPhases(self, playersRoles):
+        """Return a ordered list of phase from the selected roles."""
+        phases = list()
+        for phase in self._getAllNightPhases():
+            if phase in playersRoles:
+                phases.append(phase)
         return phases
 
 
@@ -112,6 +119,9 @@ if __name__ == "__main__":
     print("---")
     print("_getAllOrder")
     print(dm._getAllOrder())
+    print("---")
+    print("_getAllNightPhases")
+    print(dm._getAllNightPhases())
     print("---")
     print("getOrderedNightPhases")
     print(dm.getOrderedNightPhases(dm.getPlayersRoles()))
