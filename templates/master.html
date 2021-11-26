@@ -64,84 +64,101 @@
 </script>
 
 
-<!-- PHASES ORDER -->
-<div class="text-center p-2">
-  <h4 class="fw-bold text-primary">Night Phases</h4>
-</div>
-
-<div>
-  {% for phase in nightPhases %}
-  <div class="row mx-5 my-1 px-3 rounded-3" id="{{ phase }}" onclick="phaseDone('{{ phase }}')">
-    <p class="text-center m-0 p-0 fw-bold">{{ roles[phase]['name'] }}</p>
-  </div>
-  {% endfor %}
-</div>
-
-<form class="text-center m-4">
-  <input type="submit" class="btn btn-primary" value="DEBUG RELOAD">
-</form>
-
 <div class="text-center m-4">
   <div class="btn btn-primary" onclick="resetStatus({{ playersNames }})">Reset</div>
 </div>
 
-<hr>
+
+<!-- PHASES ORDER -->
+<div id="accordion1">
+  <div class="card">
+    <div class="card-header">
+      <a class="btn" data-bs-toggle="collapse" href="#collapseItem1">
+        <h4 class="fw-bold text-primary m-0 p-0">Night Phases</h4>
+      </a>
+    </div>
+    <div id="collapseItem1" class="collapse" data-bs-parent="#accordion">
+      <div class="card-body">
+        {% for phase in nightPhases %}
+        <div class="row mx-5 my-1 px-3 rounded-3" id="{{ phase }}" onclick="phaseDone('{{ phase }}')">
+          <p class="text-center m-0 p-0 fw-bold">{{ roles[phase]['name'] }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- PLAYERS ALIVE-->
-<div class="text-center p-2">
-  <h4 class="fw-bold text-primary">Players Alive</h4>
-</div>
-
-<div class="container m-0 p-2 bg-light rounded-3" id="alive-container">
-  <!-- ALIVE PLAYER ROWS -->
-  {% for player in players %}
-  <div class="row m-0 p-0" id="row-{{ player['name'] }}">
-    <!-- User Container -->
-    <div class="col-4 m-0 p-0 fs-6" id="alive-{{ player['name'] }}">
-      <div class="row m-0 px-0">
-        <p class="m-0 p-0 text-truncate fw-bold">{{ player['name'] }}</p>
-      </div>
-      <div class="row m-0 px-0">
-        <p class="m-0 p-0 text-truncate siz">{{ roles[player['role']]['name'] }}</p>
-      </div>
-      <div class="row m-0 px-0">
-        <p class="m-0 p-0 text-truncate">{{ player['race'] }}</p>
-      </div>
+<div id="accordion2">
+  <div class="card my-2">
+    <div class="card-header">
+      <a class="btn" data-bs-toggle="collapse" href="#collapseItem2">
+        <h4 class="fw-bold text-primary m-0 p-0">Players Alive</h4>
+      </a>
     </div>
-            
-    <!-- Status Container -->
-    <div class="col d-flex flex-wrap m-0 p-0" id="status-{{ player['name'] }}"></div>
+    <div id="collapseItem2" class="collapse" data-bs-parent="#accordion2">
+      <div class="card-body m-0 p-2 rounded-3" id="alive-container">
+        <!-- ALIVE PLAYER ROWS -->
+        {% for player in players %}
+        <div class="row m-0 p-0" id="row-{{ player['name'] }}">
+          <!-- User Container -->
+          <div class="col-4 m-0 p-0 fs-6" id="alive-{{ player['name'] }}">
+            <div class="row m-0 px-0">
+              <p class="m-0 p-0 text-truncate fw-bold">{{ player['name'] }}</p>
+            </div>
+            <div class="row m-0 px-0">
+              <p class="m-0 p-0 text-truncate siz">{{ roles[player['role']]['name'] }}</p>
+            </div>
+            <div class="row m-0 px-0">
+              <p class="m-0 p-0 text-truncate">{{ player['race'] }}</p>
+            </div>
+          </div>
+                  
+          <!-- Status Container -->
+          <div class="col d-flex flex-wrap m-0 p-0" id="status-{{ player['name'] }}"></div>
 
-    <!-- DropDown Container -->
-    <div class="col-1 dropdown text-end m-0 p-0" id="dropdownContainer-{{ player['name'] }}">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" id="menuButton-{{ player['name'] }}"></button>
-      <ul class="dropdown-menu" id="menu-{{ player['name'] }}">
-        <li><p class="dropdown-item" onclick="killPlayer('{{ player['name'] }}')">DEAD</p></li>
-        {% for (name, color) in statusData %}
-        <li><p class="dropdown-item" onclick="addStatus('{{ name }}', '{{ color }}', 'status-{{ player['name'] }}')">{{ name }}</p></li>
+          <!-- DropDown Container -->
+          <div class="col-1 dropdown text-end m-0 p-0" id="dropdownContainer-{{ player['name'] }}">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" id="menuButton-{{ player['name'] }}"></button>
+            <ul class="dropdown-menu" id="menu-{{ player['name'] }}">
+              <li><p class="dropdown-item" onclick="killPlayer('{{ player['name'] }}')">DEAD</p></li>
+              {% for (name, color) in statusData %}
+              <li><p class="dropdown-item" onclick="addStatus('{{ name }}', '{{ color }}', 'status-{{ player['name'] }}')">{{ name }}</p></li>
+              {% endfor %}
+            </ul>
+          </div>
+          
+          <!-- DropUp Container HIDDEN -->
+          <div class="col-1 dropup text-end m-0 p-0" id="dropupContainer-{{ player['name'] }}" hidden>
+            <div class="btn btn-danger dropdown-toggle" onclick="resurrectPlayer('{{ player['name'] }}')"></div>
+          </div>
+          
+          <hr class="m-1 p-0">
+        </div>
         {% endfor %}
-      </ul>
+      </div>
     </div>
-    
-    <!-- DropUp Container HIDDEN -->
-    <div class="col-1 dropup text-end m-0 p-0" id="dropupContainer-{{ player['name'] }}" hidden>
-      <div class="btn btn-danger dropdown-toggle" onclick="resurrectPlayer('{{ player['name'] }}')"></div>
-    </div>
-    
-    <hr class="m-1 p-0">
   </div>
-  {% endfor %}
 </div>
 
 
 <!-- PLAYERS DEAD -->
-<div class="text-center p-2" id="dead-title">
-  <h4 class="fw-bold text-danger">Dead Players</h4>
+<div id="accordion3">
+  <div class="card">
+    <div class="card-header">
+      <a class="btn" data-bs-toggle="collapse" href="#collapseItem3">
+        <h4 class="fw-bold text-primary m-0 p-0">Dead Players</h4>
+      </a>
+    </div>
+    <div id="collapseItem3" class="collapse show" data-bs-parent="#accordion3">
+      <div class="card-body m-0 p-2" id="dead-container">
+          <!-- move here dead-player rows -->
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="container m-0 p-2 bg-light" id="dead-container">
-  <!-- move here dead-player rows -->
-</div>
 
 {% endblock content %}

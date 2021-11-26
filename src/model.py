@@ -154,11 +154,6 @@ class Game:
         return self.statusData
 
 
-    def processNightData(self, data):
-        print(data)     
-
-
-
 
 # TESTS
 if __name__ == "__main__":
