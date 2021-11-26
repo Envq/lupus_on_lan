@@ -15,7 +15,7 @@ class Game:
         self.players      = dict()
         self.master       = None
         self._userCounter = 0 
-        self._addFake()
+        # self._addFake()
     
 
     def _addFake(self):
@@ -130,7 +130,7 @@ class Game:
         playerRole = self.players[id]['role']
         for p, info in self.players.items():
             if info['role'] == playerRole and p != id:
-                playersSimilar.append(p)
+                playersSimilar.append(info['name'])
         return playersSimilar
 
 

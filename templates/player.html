@@ -15,8 +15,8 @@
   <p>{{ role['description'] }}</p>
 
   {% if playersSimilar %}
-    <h4 class="fw-bold">Ally:</h4>
     <div class="d-flex flex-wrap">
+      <h4 class="fw-bold m-2">Ally:</h4>
       {% for name in playersSimilar %}
       <div class="bg-light text-black rounded-3 m-2 px-4">{{ name }}</div>
       {% endfor %}

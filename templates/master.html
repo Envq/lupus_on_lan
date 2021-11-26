@@ -14,9 +14,9 @@
   function addStatus(name, color, id) {
     var badgeId = name + id;
     if (!document.getElementById(badgeId)) {
-      var badge = document.createElement("p");
+      var badge = document.createElement("span");
       badge.id = badgeId;
-      badge.className = "badge rounded-pill m-1 p-2 text-center";
+      badge.className = "col badge rounded-pill m-1 p-2 text-center";
       badge.style.background = color;
       badge.textContent = name;
       badge.onclick = function () {this.parentElement.removeChild(this);};
@@ -98,7 +98,7 @@
         <h4 class="fw-bold text-primary m-0 p-0">Players Alive</h4>
       </a>
     </div>
-    <div id="collapseItem2" class="collapse" data-bs-parent="#accordion2">
+    <div id="collapseItem2" class="collapse show" data-bs-parent="#accordion2">
       <div class="card-body m-0 p-2 rounded-3" id="alive-container">
         <!-- ALIVE PLAYER ROWS -->
         {% for player in players %}
@@ -117,7 +117,9 @@
           </div>
                   
           <!-- Status Container -->
-          <div class="col d-flex flex-wrap m-0 p-0" id="status-{{ player['name'] }}"></div>
+          <div class="col m-0 p-0">
+            <div class="row d-flex flex-wrap m-0 p-0" id="status-{{ player['name'] }}"></div>
+          </div>
 
           <!-- DropDown Container -->
           <div class="col-1 dropdown text-end m-0 p-0" id="dropdownContainer-{{ player['name'] }}">
