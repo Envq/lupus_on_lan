@@ -51,6 +51,9 @@ def lobby():
     userIP = request.remote_addr
     if not app.game.isAlreadyLogged(userIP):
         return render_template("register.html")
+    # Check if finish
+    if (request.method == 'POST') and (request.form.get('finish') == 'Finish'):
+        app.game.newGame()
     # Check if start
     if app.game.lobbyIsFull():
         if not app.game.isMaster(userIP):
@@ -64,5 +67,6 @@ def lobby():
                                     statusData   = app.game.getStatusData(),
                                     players      = app.game.getPlayers(),
                                     playersNames = app.game.getPlayersNames(),
-                                    roles        = app.game.getRolesData())
+                                    roles        = app.game.getRolesData(),
+                                    rules        = app.game.getRules())
     return goToLobby(userIP)

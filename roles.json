@@ -1,6 +1,6 @@
 {
     "werewolf": {
-        "num": 1,
+        "num": 0,
         "name": "Lupo Mannaro",
         "priority": 7,
         "race": "Mostro",
@@ -13,7 +13,7 @@
         "isVisibleForSimilars": true,
         "rulesDescription": "[8+] Ad inizio partita i lupi mannari si riconoscono. Ogni notte si accordano per sbranare uno degli abitanti del villaggio che, salvo interventi di personaggi speciali, verrà dichiarato morto dal master all'inizio della giornata successiva.",
         "playerDescription": "Durante la notte decidi, con gli altri lupi, il giocatore da uccidere.",
-        "image": "default/lupo.jpg"
+        "image": "default/werewolf.png"
     },
     "seer": {
         "num": 0,
@@ -26,7 +26,7 @@
         "isVisibleForSimilars": true,
         "rulesDescription": "[8+] Ogni notte indica al master un giocatore da visionare. Il master gli indicherà se è o non è Mostro.",
         "playerDescription": "Durante la notte indica un giocatore ancora vivo. Il master ti dirà se il personaggio da te indicato è Umano o un Mostro. Nota: alcuni personaggi sono in un team diverso dalla loro razza.",
-        "image": "default/seer.jpg"
+        "image": "default/seer.png"
     },
     "villager": {
         "num": 0,
@@ -39,7 +39,7 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "[8+] Il suo compito è scoprire chi sono i lupi, ma non ha armi a disposizione ad eccezione dell'intuito e della logica.",
         "playerDescription": "Durante il giorno cerca, con l'aiuto degli altri Umani, di uccidere attraverso la votazione i Mostri.",
-        "image": "default/villager.jpg"
+        "image": "default/villager.png"
     },
     "medium": {
         "num": 0,
@@ -52,7 +52,7 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "[9+] È un umano che può mettersi in contatto con i fantasmi. All’inizio della notte (dalla seconda in poi), il moderatore chiama la sua fase e con un cenno del capo gli dice “sì” se la persona linciata nel turno precedente era un lupo mannaro, “no” altrimenti.",
         "playerDescription": "Durante la notte il master ti dirà se il giocatore ucciso nell'ultima votazione diurna era un Umano o un Mostro.",
-        "image": "default/medium.jpg"
+        "image": "default/medium.png"
     },
     "possessed": {
         "num": 0,
@@ -81,7 +81,7 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "[11+] È un umano che ogni notte protegge una persona a sua scelta. Durante la notte (dalla seconda in poi) prima della fase dei lupi mannari, il master chiama la Guardia del corpo e questi gli indica una persona a scelta. La Guardia del corpo non può scegliere se stesso! La persona indicata è protetta dai lupi mannari. Se quella persona è poi scelta anche dai lupi mannari come vittima, non muore e nella fase della notte nessuno è sbranato.",
         "playerDescription": "Dalla seconda notte in poi, scegli un giocatore ancora vivo. Esso non potrà essere ucciso dai Mostri in quella notte. Non puoi scegliere te stesso.",
-        "image": "default/bodyguard.jpg"
+        "image": "default/bodyguard.png"
     },
     "owlman": {
         "num": 0,
@@ -97,10 +97,10 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "[12+/20+] È un umano. Durante ogni notte, il master chiama la fase del Gufo, il quale indica una persona. Durante il giorno, dopo che tutti hanno votato, il moderatore annuncia il nome di chi è stato “gufato”. Il “gufato” entra di diritto tra i giocatori indiziati, insieme alla prima persona con più voti. Se la persona gufata era indiziata, il voto del Gufo non cambia nulla. Giocando con 20 o più giocatori, il Gufo diventa Gufo Letale. Se il giocatore “gufato” durante la notte non era un Mannaro (Lupo o Criceto), muore all’inizio del giorno. In questo modo, potrebbero essere uccisi due giocatori nella stessa notte: il master decide a quale dei due dare il segnalino “Benvenuto!”",
         "playerDescription": "Durante la notte scegli un giocatore ancora vivo da gufare. Dopo la votazione diurna quel personaggio prende il posto del secondo indiziato con più voti. Nella versione Gufo-Letale (20+ giocatori), il giocatore gufato viene ucciso se non era un Mannaro.",
-        "image": "default/owlman.jpg"
+        "image": "default/owlman.png"
     },
-    "freemasons": {
-        "num": 0,
+    "freemason": {
+        "num": 1,
         "name": "Massone",
         "priority": 0,
         "race": "Umano",
@@ -110,7 +110,7 @@
         "isVisibleForSimilars": true,
         "rulesDescription": "[13+] Sono due umani che conoscono reciprocamente il ruolo dell’altro. Solo durante la prima notte, infatti, il moderatore chiama anche i Massoni i quali aprono gli occhi e si riconoscono. I Massoni vanno aggiunti al mazzo sempre in coppia, e non singolarmente.",
         "playerDescription": "Sai chi è l'altro massone.",
-        "image": "default/freemasons.jpg"
+        "image": "default/freemason.jpg"
     },
     "werehamster": {
         "num": 0,
@@ -126,7 +126,7 @@
         "image": "default/werehamster.jpg"
     },
     "mythomaniac": {
-        "num": 0,
+        "num": 1,
         "name": "Mitomante",
         "priority": 2,
         "race": "Umano",

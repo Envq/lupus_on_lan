@@ -64,20 +64,37 @@
 </script>
 
 
-<div class="text-center m-4">
-  <div class="btn btn-primary" onclick="resetStatus({{ playersNames }})">Reset</div>
+<!-- RULES -->
+<div id="accordion1">
+  <div class="card mb-2">
+    <div class="card-header">
+      <a class="btn" data-bs-toggle="collapse" href="#collapseItem1">
+        <h4 class="fw-bold text-primary m-0 p-0">Rules</h4>
+      </a>
+    </div>
+    <div id="collapseItem1" class="collapse" data-bs-parent="#accordion1">
+      <div class="card-body">
+        {% for rule in rules %}
+        <div class="row">
+          <b>{{ rule[0] }}:</b> {{ rule[1] }}
+        </div>
+        <br>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 </div>
 
 
 <!-- PHASES ORDER -->
-<div id="accordion1">
-  <div class="card">
+<div id="accordion2">
+  <div class="card mb-2">
     <div class="card-header">
-      <a class="btn" data-bs-toggle="collapse" href="#collapseItem1">
+      <a class="btn" data-bs-toggle="collapse" href="#collapseItem2">
         <h4 class="fw-bold text-primary m-0 p-0">Night Phases</h4>
       </a>
     </div>
-    <div id="collapseItem1" class="collapse" data-bs-parent="#accordion">
+    <div id="collapseItem2" class="collapse" data-bs-parent="#accordion2">
       <div class="card-body">
         {% for phase in nightPhases %}
         <div class="row mx-5 my-1 px-3 rounded-3" id="{{ phase }}" onclick="phaseDone('{{ phase }}')">
@@ -91,14 +108,14 @@
 
 
 <!-- PLAYERS ALIVE-->
-<div id="accordion2">
-  <div class="card my-2">
+<div id="accordion3">
+  <div class="card  mb-2">
     <div class="card-header">
-      <a class="btn" data-bs-toggle="collapse" href="#collapseItem2">
+      <a class="btn" data-bs-toggle="collapse" href="#collapseItem3">
         <h4 class="fw-bold text-primary m-0 p-0">Players Alive</h4>
       </a>
     </div>
-    <div id="collapseItem2" class="collapse show" data-bs-parent="#accordion2">
+    <div id="collapseItem3" class="collapse" data-bs-parent="#accordion3">
       <div class="card-body m-0 p-2 rounded-3" id="alive-container">
         <!-- ALIVE PLAYER ROWS -->
         {% for player in players %}
@@ -147,20 +164,32 @@
 
 
 <!-- PLAYERS DEAD -->
-<div id="accordion3">
-  <div class="card">
+<div id="accordion4">
+  <div class="card mb-2">
     <div class="card-header">
-      <a class="btn" data-bs-toggle="collapse" href="#collapseItem3">
+      <a class="btn" data-bs-toggle="collapse" href="#collapseItem4">
         <h4 class="fw-bold text-primary m-0 p-0">Dead Players</h4>
       </a>
     </div>
-    <div id="collapseItem3" class="collapse show" data-bs-parent="#accordion3">
+    <div id="collapseItem4" class="collapse" data-bs-parent="#accordion4">
       <div class="card-body m-0 p-2" id="dead-container">
           <!-- move here dead-player rows -->
       </div>
     </div>
   </div>
 </div>
+
+
+<div class="row text-center m-4">
+  <form class="col-5 text-center m-2 p-0" method="POST" action="/lobby">
+    <input class="btn btn-dark m-0 p-2 rounded-3" type="submit"  value="Finish" name="finish">
+  </form>
+
+  <div class="col-5 text-center m-2 p-0">
+    <div class="btn btn-primary m-0 p-2 rounded-3" onclick="resetStatus({{ playersNames }})">Reset</div>
+  </div>
+</div>
+
 
 
 {% endblock content %}

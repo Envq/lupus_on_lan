@@ -97,6 +97,23 @@ class DataManager:
         return phases
 
 
+    def _getAllRules(self):
+        """Return all the rules"""
+        rules = list()
+        for _, info in self.rolesData.items():
+            rules.append((info['name'], info['rulesDescription']))
+        return rules
+
+
+    def getRules(self, playersRoles):
+        """Return the rules"""
+        rules = list()
+        for role, info in self.rolesData.items():
+            if role in playersRoles:
+                rules.append((info['name'], info['rulesDescription']))
+        return rules
+
+
 
 # TESTS
 if __name__ == "__main__":
@@ -125,6 +142,9 @@ if __name__ == "__main__":
     print("---")
     print("getOrderedNightPhases")
     print(dm.getOrderedNightPhases(dm.getPlayersRoles()))
+    print("---")
+    print("getRules")
+    print(dm.getRules(dm.getPlayersRoles()))
     print("---")
 
     print("OK all is correct")
