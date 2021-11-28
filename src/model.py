@@ -5,9 +5,8 @@ from data_manager import DataManager
 
 
 class Game:
-    # DEPRECED
-    def __init__(self):
-        self.dataManager  = DataManager()
+    def init(self, lang):
+        self.dataManager  = DataManager(f'roles-{lang}.json')
         self.rolesData    = self.dataManager.getRolesDataAvailables()
         self.statusData   = self.dataManager.getStatusAvailables(self.rolesData)
         self.playersRoles = self.dataManager.getPlayersRoles()
@@ -16,7 +15,7 @@ class Game:
         self.players      = dict()
         self.master       = None
         self._userCounter = 0 
-        # self._addFake()
+        self._addFake()
     
 
     def _addFake(self):
@@ -24,22 +23,22 @@ class Game:
         self.playersRoles = ['werewolf'] * 16
         # PLAYERS
         self.players = dict()
-        self.players['192.168.1.1']  = {'name' : 'A', 'role' : 'werewolf',      }
-        self.players['192.168.1.2']  = {'name' : 'B', 'role' : 'seer',          }
-        self.players['192.168.1.3']  = {'name' : 'C', 'role' : 'villager',      }
-        self.players['192.168.1.4']  = {'name' : 'D', 'role' : 'medium',        }
-        self.players['192.168.1.5']  = {'name' : 'E', 'role' : 'possessed',     }
-        self.players['192.168.1.6']  = {'name' : 'F', 'role' : 'bodyguard',     }
-        self.players['192.168.1.7']  = {'name' : 'G', 'role' : 'owlman',        }
-        self.players['192.168.1.8']  = {'name' : 'H', 'role' : 'freemason',     }
-        self.players['192.168.1.9']  = {'name' : 'I', 'role' : 'werehamster',   }
-        self.players['192.168.1.10'] = {'name' : 'J', 'role' : 'mythomaniac',   }
-        self.players['192.168.1.11'] = {'name' : 'K', 'role' : 'mage',          }
-        self.players['192.168.1.12'] = {'name' : 'L', 'role' : 'infector',      }
-        self.players['192.168.1.13'] = {'name' : 'M', 'role' : 'villager',      }
-        self.players['192.168.1.14'] = {'name' : 'N', 'role' : 'werewolf',      }
-        self.players['192.168.1.15'] = {'name' : 'O', 'role' : 'werewolf',      }
-        self.players['192.168.1.16'] = {'name' : 'P', 'role' : 'werewolf',      }
+        self.players['192.168.1.1']  = {'name' : 'Asbrubale', 'role' : 'werewolf',      }
+        self.players['192.168.1.2']  = {'name' : 'Benjamin',  'role' : 'seer',          }
+        self.players['192.168.1.3']  = {'name' : 'Chiara',    'role' : 'villager',      }
+        self.players['192.168.1.4']  = {'name' : 'Damiano',   'role' : 'medium',        }
+        self.players['192.168.1.5']  = {'name' : 'Ezio',      'role' : 'possessed',     }
+        self.players['192.168.1.6']  = {'name' : 'Frank',     'role' : 'bodyguard',     }
+        self.players['192.168.1.7']  = {'name' : 'Ginevra',   'role' : 'owlman',        }
+        self.players['192.168.1.8']  = {'name' : 'Han',       'role' : 'freemason',     }
+        self.players['192.168.1.9']  = {'name' : 'Ivy',       'role' : 'werehamster',   }
+        self.players['192.168.1.10'] = {'name' : 'Joseph',    'role' : 'mythomaniac',   }
+        self.players['192.168.1.11'] = {'name' : 'Kyle',      'role' : 'mage',          }
+        self.players['192.168.1.12'] = {'name' : 'Leia',      'role' : 'infector',      }
+        self.players['192.168.1.13'] = {'name' : 'Maurizio',  'role' : 'villager',      }
+        self.players['192.168.1.14'] = {'name' : 'Nikola',    'role' : 'werewolf',      }
+        self.players['192.168.1.15'] = {'name' : 'Ollie',     'role' : 'werewolf',      }
+        self.players['192.168.1.16'] = {'name' : 'Padmé',     'role' : 'werewolf',      }
         # ROLES
         self.rolesData = self.dataManager._getAllRolesData()
         # STATUS

@@ -121,7 +121,7 @@ class DataManager:
 
 # TESTS
 if __name__ == "__main__":
-    dm = DataManager(settings_path="roles.json")
+    dm = DataManager(settings_path="roles-it.json")
 
     print('_getAllRolesData')
     for k,v in dm._getAllRolesData().items():

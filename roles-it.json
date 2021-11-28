@@ -29,7 +29,7 @@
         "image": "default/seer.png"
     },
     "villager": {
-        "num": 2,
+        "num": 0,
         "name": "Contadino",
         "priority": 0,
         "race": "Umano",

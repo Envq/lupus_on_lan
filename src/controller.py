@@ -1,8 +1,6 @@
 #!/usr/bin/python3
-from os import name
 from flask import Flask, request
 from flask.templating import render_template
-import time
 
 from model import Game
 
@@ -15,9 +13,13 @@ app = Flask("Lupus on LAN",
 # INITIALIZATION CONTROLLER
 app.game = Game()
 
+def changeLang(lang):
+    app.game.init(lang)
+
+
 
 # CUSTOM FUNCTIONS
-def goToLobby(userID):
+def goToLobby():
     return render_template("lobby.html",
                             players  = app.game.getUsersNames(),
                             progress = app.game.getProgressLobbyStr())
@@ -28,7 +30,7 @@ def goToLobby(userID):
 def home():
     userIP = request.remote_addr
     if app.game.isAlreadyLogged(userIP):
-        return goToLobby(userIP)
+        return goToLobby()
     # go to register page
     return render_template("register.html")
 
@@ -37,12 +39,12 @@ def home():
 def register():
     userIP = request.remote_addr
     if app.game.isAlreadyLogged(userIP):
-        return goToLobby(userIP)
+        return goToLobby()
     # Check if there is a message
     if request.method == 'POST':
         userName = request.form["nickname"]
         if app.game.addUser(userIP, userName):
-            return goToLobby(userIP)
+            return goToLobby()
     return render_template("register.html")
 
 
@@ -69,4 +71,4 @@ def lobby():
                                     playersNames = app.game.getPlayersNames(),
                                     roles        = app.game.getRolesData(),
                                     rules        = app.game.getRules())
-    return goToLobby(userIP)
+    return goToLobby()

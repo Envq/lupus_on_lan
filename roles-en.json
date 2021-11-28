@@ -1,0 +1,173 @@
+{
+    "werewolf": {
+        "num": 0,
+        "name": "Werewolf",
+        "priority": 7,
+        "race": "Monster",
+        "team": "Monster",
+        "action": "set",
+        "targetStatus": [
+            "mauled",
+            "#ff0000"
+        ],
+        "isVisibleForSimilars": true,
+        "rulesDescription": "[8+] At the beginning of the game the werewolves recognize each other. Every night they agree to tear one of the villagers to pieces who, barring the intervention of special characters, will be declared dead by the master at the beginning of the next day.",
+        "playerDescription": "During the night you decide, with the other wolves, the player to kill.",
+        "image": "default/werewolf.png"
+    },
+    "seer": {
+        "num": 0,
+        "name": "Seer",
+        "priority": 3,
+        "race": "Human",
+        "team": "Human",
+        "action": "get",
+        "targetStatus": null,
+        "isVisibleForSimilars": true,
+        "rulesDescription": "[8+] Each night tells the master a player to view. The master will tell him whether or not he is Monster.",
+        "playerDescription": "During the night it indicates a player still alive. The master will tell you if the character you indicate is Human or a Monster. Note: Some characters are on a different team than their race.",
+        "image": "default/seer.png"
+    },
+    "villager": {
+        "num": 0,
+        "name": "Villager",
+        "priority": 0,
+        "race": "Human",
+        "team": "Human",
+        "action": null,
+        "targetStatus": null,
+        "isVisibleForSimilars": false,
+        "rulesDescription": "[8+] His job is to find out who the wolves are, but he has no weapons at his disposal except intuition and logic.",
+        "playerDescription": "During the day he tries, with the help of the other Humans, to kill the Monsters by voting.",
+        "image": "default/villager.png"
+    },
+    "medium": {
+        "num": 0,
+        "name": "Medium",
+        "priority": 4,
+        "race": "Human",
+        "team": "Human",
+        "action": "get",
+        "targetStatus": null,
+        "isVisibleForSimilars": false,
+        "rulesDescription": "[9+] He is a Human who can get in touch with ghosts. At the beginning of the night (from the second onwards), the moderator calls his phase and with a nod of the head says “yes” if the person lynched in the previous round was a werewolf, “no” otherwise.",
+        "playerDescription": "During the night the master will tell you if the player killed in the last daytime vote was a Human or a Monster.",
+        "image": "default/medium.png"
+    },
+    "possessed": {
+        "num": 0,
+        "name": "Possessed",
+        "priority": 0,
+        "race": "Human",
+        "team": "Monster",
+        "action": null,
+        "targetStatus": null,
+        "isVisibleForSimilars": false,
+        "rulesDescription": "[10+] He's a Human, but he sided with werewolves... without knowing who they are! Therefore he wins if the werewolves win.",
+        "playerDescription": "You are a Human, but you play together with Monsters, without knowing who they are.",
+        "image": "default/possessed.jpg"
+    },
+    "bodyguard": {
+        "num": 0,
+        "name": "Bodyguard",
+        "priority": 6,
+        "race": "Human",
+        "team": "Human",
+        "action": "set",
+        "targetStatus": [
+            "safe",
+            "#00b300"
+        ],
+        "isVisibleForSimilars": false,
+        "rulesDescription": "[11+] He is a Human who protects a person of his choice every night. During the night (from the second onwards) before the phase of the werewolves, the master calls the Bodyguard and he points out a person of his choice. The Bodyguard cannot choose himself! The indicated person is protected from werewolves. If that person is then also chosen by werewolves as a victim, he does not die and in the phase of the night no one is torn to pieces.",
+        "playerDescription": "From the second night on, choose a player who is still alive. It cannot be killed by monsters that night. You cannot choose yourself.",
+        "image": "default/bodyguard.png"
+    },
+    "owlman": {
+        "num": 0,
+        "name": "Owlman",
+        "priority": 5,
+        "race": "Human",
+        "team": "Human",
+        "action": "set",
+        "targetStatus": [
+            "jinxed",
+            "#1a1a1a"
+        ],
+        "isVisibleForSimilars": false,
+        "rulesDescription": "[12+/20+] he is a Human. Each night, the moderator calls the phase of the Owl, who chooses a person. During the day, play proceeds as normal until the voting for the two suspects. Once all players have voted, the moderator announces the name of the person chosen by the Owl-man, who automatically becomes one of the two suspects, ahead of the others. If the person chosen by the Owl-man was one of the two suspected, then the preference of the Owl does not change anything. When playing with more than 20 players, the Owl-man becomes a Deadly Owl-man: If the chosen person was neither a Werewolf nor the Werehamster, that person dies at the beginning of the day! Two players may be killed during the same night: in that case, the Moderator randomly chooses who to give the “Welcome!” to.",
+        "playerDescription": "During the night, choose a player who is still alive to watch. After the daytime vote, that character takes the place of the second suspect with the most votes. In the Owl-Deadly version (20+ players), the owl player is killed if he wasn't a Werewolf.",
+        "image": "default/owlman.png"
+    },
+    "freemason": {
+        "num": 0,
+        "name": "Freemason",
+        "priority": 0,
+        "race": "Human",
+        "team": "Human",
+        "action": null,
+        "targetStatus": null,
+        "isVisibleForSimilars": true,
+        "rulesDescription": "[13+] They are two Humans who know each other’s role. During the first night, the Moderator calls their phase: the Freemasons open their eyes and recognize each other. The Freemasons must be added to the deck as a pair, not singularly.",
+        "playerDescription": "You know who the other Freemason is.",
+        "image": "default/freemason.jpg"
+    },
+    "werehamster": {
+        "num": 0,
+        "name": "Werehamster",
+        "priority": 0,
+        "race": "Human",
+        "team": "Werehamster",
+        "action": null,
+        "targetStatus": null,
+        "isVisibleForSimilars": false,
+        "rulesDescription": "[15] For game ending purposes and for the medium, he is considered a Human. If he is seen in the night by the Seer, he dies along with the maimed. The Werehamster does not belong to any faction: he plays only for himself. The werewolves cannot be mauled by werewolves: if he is chosen during the night, no one is mauled. The werewolf is the only winner if he is still alive when the game is over.",
+        "playerDescription": "You win (and everyone else loses) if you are still alive when the game ends. You are seen as Human by the medium and count as Human for the end of game criterion. Die if the seer chooses you.",
+        "image": "default/werehamster.jpg"
+    },
+    "mythomaniac": {
+        "num": 0,
+        "name": "Mythomaniac",
+        "priority": 2,
+        "race": "Human",
+        "team": "Human, unless you change your race",
+        "action": "get",
+        "targetStatus": null,
+        "isVisibleForSimilars": false,
+        "rulesDescription": "[16] He plays a special phase at the end of the second night: he has only one chance to point to another player still in play. If that player is not a Werewolf or the Seer, then the Mythomaniac stays a Human until the game ends. Otherwise, if that player is a Werewolf or the Seer, he immediately takes on the same role as the chosen player! From now on, the Mythomaniac opens his eyes at night when the moderator calls the character whose ability he now matches; each decision is taken together. The Seer sees the Mythomaniac-Werewolf as a Werewolf.",
+        "playerDescription": "Start as a Human. At the end of the second night choose a player who is still alive: if the chosen player is a werewolf or the seer then take that role from now on.",
+        "image": "default/mythomaniac.jpg"
+    },
+    "mage": {
+        "num": 0,
+        "name": "Mage",
+        "priority": 1,
+        "race": "Human",
+        "team": "Human",
+        "action": "set",
+        "targetStatus": [
+            "bewitched",
+            "#8000ff"
+        ],
+        "isVisibleForSimilars": false,
+        "rulesDescription": "Choose a player. Any action that targets the chosen player is reflected back to the one taking it.",
+        "playerDescription": "During the night, choose a player who is still alive. Any action that targets the chosen player is reflected back to the one taking it.",
+        "image": "default/mage.jpg"
+    },
+    "infector": {
+        "num": 0,
+        "name": "Infector",
+        "priority": 8,
+        "race": "Monster",
+        "team": "Human",
+        "action": "set",
+        "targetStatus": [
+            "anointed",
+            "#804000"
+        ],
+        "isVisibleForSimilars": false,
+        "rulesDescription": "Anoints a player. Whoever is anointed dies automatically if he pronounces the words “yes” or “no”, anointing the adjacent characters. Greasy characters stop being greasy early in the night",
+        "playerDescription": "Grease a player. The anointed one dies automatically if he pronounces the words “yes” or “no”, anointing adjacent characters. Greasy characters stop being greasy early in the night.",
+        "image": "default/infector.jpg"
+    }
+}
