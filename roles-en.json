@@ -1,6 +1,6 @@
 {
     "werewolf": {
-        "num": 0,
+        "num": 2,
         "name": "Werewolf",
         "priority": 7,
         "race": "Monster",
@@ -16,7 +16,7 @@
         "image": "default/werewolf.png"
     },
     "seer": {
-        "num": 0,
+        "num": 1,
         "name": "Seer",
         "priority": 3,
         "race": "Human",
@@ -29,7 +29,7 @@
         "image": "default/seer.png"
     },
     "villager": {
-        "num": 0,
+        "num": 5,
         "name": "Villager",
         "priority": 0,
         "race": "Human",
