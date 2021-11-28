@@ -29,7 +29,7 @@
         "image": "default/seer.png"
     },
     "villager": {
-        "num": 0,
+        "num": 2,
         "name": "Contadino",
         "priority": 0,
         "race": "Umano",
@@ -100,7 +100,7 @@
         "image": "default/owlman.png"
     },
     "freemason": {
-        "num": 1,
+        "num": 0,
         "name": "Massone",
         "priority": 0,
         "race": "Umano",
@@ -126,7 +126,7 @@
         "image": "default/werehamster.jpg"
     },
     "mythomaniac": {
-        "num": 1,
+        "num": 0,
         "name": "Mitomante",
         "priority": 2,
         "race": "Umano",

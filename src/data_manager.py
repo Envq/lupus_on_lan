@@ -42,6 +42,10 @@ class DataManager:
         return roles
     
 
+    def isVisibleForSimilars(self, role):
+        return self.rolesData[role]['isVisibleForSimilars']
+    
+
     def getPlayersRoles(self):
         """Return a list with all the rolesName in Game. Roles with num>1 have rapeated names."""
         roles = list()
@@ -120,13 +124,18 @@ if __name__ == "__main__":
     dm = DataManager(settings_path="roles.json")
 
     print('_getAllRolesData')
-    print(dm._getAllRolesData())
+    for k,v in dm._getAllRolesData().items():
+        print(k,v)
     print("---")
     print('getRolesDataAvailables')
     print(dm.getRolesDataAvailables())
     print("---")
     print("getPlayersRoles")
     print(dm.getPlayersRoles())
+    print("---")
+    print("isVisibleForSimilars")
+    print(dm.isVisibleForSimilars('villager'))
+    print(dm.isVisibleForSimilars('freemason'))
     print("---")
     print("_getAllStatus")
     print(dm._getAllStatus())
