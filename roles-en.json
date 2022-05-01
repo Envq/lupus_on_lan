@@ -65,7 +65,7 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "[10+] He's a Human, but he sided with werewolves... without knowing who they are! Therefore he wins if the werewolves win.",
         "playerDescription": "You are a Human, but you play together with Monsters, without knowing who they are.",
-        "image": "default/possessed.jpg"
+        "image": "default/possessed.png"
     },
     "bodyguard": {
         "num": 0,
@@ -110,7 +110,7 @@
         "isVisibleForSimilars": true,
         "rulesDescription": "[13+] They are two Humans who know each other’s role. During the first night, the Moderator calls their phase: the Freemasons open their eyes and recognize each other. The Freemasons must be added to the deck as a pair, not singularly.",
         "playerDescription": "You know who the other Freemason is.",
-        "image": "default/freemason.jpg"
+        "image": "default/freemason.png"
     },
     "werehamster": {
         "num": 0,
@@ -123,7 +123,7 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "[15] For game ending purposes and for the medium, he is considered a Human. If he is seen in the night by the Seer, he dies along with the maimed. The Werehamster does not belong to any faction: he plays only for himself. The werewolves cannot be mauled by werewolves: if he is chosen during the night, no one is mauled. The werewolf is the only winner if he is still alive when the game is over.",
         "playerDescription": "You win (and everyone else loses) if you are still alive when the game ends. You are seen as Human by the medium and count as Human for the end of game criterion. Die if the seer chooses you.",
-        "image": "default/werehamster.jpg"
+        "image": "default/werehamster.png"
     },
     "mythomaniac": {
         "num": 0,
@@ -136,7 +136,7 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "[16] He plays a special phase at the end of the second night: he has only one chance to point to another player still in play. If that player is not a Werewolf or the Seer, then the Mythomaniac stays a Human until the game ends. Otherwise, if that player is a Werewolf or the Seer, he immediately takes on the same role as the chosen player! From now on, the Mythomaniac opens his eyes at night when the moderator calls the character whose ability he now matches; each decision is taken together. The Seer sees the Mythomaniac-Werewolf as a Werewolf.",
         "playerDescription": "Start as a Human. At the end of the second night choose a player who is still alive: if the chosen player is a werewolf or the seer then take that role from now on.",
-        "image": "default/mythomaniac.jpg"
+        "image": "default/mythomaniac.png"
     },
     "mage": {
         "num": 0,
@@ -152,7 +152,7 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "Choose a player. Any action that targets the chosen player is reflected back to the one taking it.",
         "playerDescription": "During the night, choose a player who is still alive. Any action that targets the chosen player is reflected back to the one taking it.",
-        "image": "default/mage.jpg"
+        "image": "default/mage.png"
     },
     "infector": {
         "num": 0,
@@ -168,6 +168,6 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "Anoints a player. Whoever is anointed dies automatically if he pronounces the words “yes” or “no”, anointing the adjacent characters. Greasy characters stop being greasy early in the night",
         "playerDescription": "Grease a player. The anointed one dies automatically if he pronounces the words “yes” or “no”, anointing adjacent characters. Greasy characters stop being greasy early in the night.",
-        "image": "default/infector.jpg"
+        "image": "default/infector.png"
     }
 }

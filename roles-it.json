@@ -65,7 +65,7 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "[10+] È un umano, ma parteggia per i lupi mannari... senza però sapere chi siano! Pertanto vince se vincono i lupi mannari.",
         "playerDescription": "Sei un umano, ma giochi insieme ai Mostri, senza però sapere chi sono.",
-        "image": "default/possessed.jpg"
+        "image": "default/possessed.png"
     },
     "bodyguard": {
         "num": 0,
@@ -110,7 +110,7 @@
         "isVisibleForSimilars": true,
         "rulesDescription": "[13+] Sono due umani che conoscono reciprocamente il ruolo dell’altro. Solo durante la prima notte, infatti, il moderatore chiama anche i Massoni i quali aprono gli occhi e si riconoscono. I Massoni vanno aggiunti al mazzo sempre in coppia, e non singolarmente.",
         "playerDescription": "Sai chi è l'altro massone.",
-        "image": "default/freemason.jpg"
+        "image": "default/freemason.png"
     },
     "werehamster": {
         "num": 0,
@@ -123,7 +123,7 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "[15] Ai fini del termine della partita e per il medium è considerato un umano. Se è visto nella notte dal Veggente, muore insieme allo sbranato. Il criceto mannaro non appartiene a nessuna fazione: gioca solo per se stesso. Il criceto mannaro non può essere sbranato dai lupi mannari: se è scelto durante la notte, non è sbranato nessuno. Il criceto mannaro è l’unico vincitore se è ancora vivo quando la partita termina.",
         "playerDescription": "Vinci (e tutti gli altri perdono) se sei ancora vivo quando finisce la partita. Vieni visto come Umano dal medium e conti come Umano al fine del criterio di fine partita. Muori se il veggente ti sceglie.",
-        "image": "default/werehamster.jpg"
+        "image": "default/werehamster.png"
     },
     "mythomaniac": {
         "num": 0,
@@ -136,7 +136,7 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "[16] Parte come umano. Il mitomane gioca, alla fine della seconda notte, una fase speciale: egli ha questa unica occasione in cui indica al master un altro giocatore ancora vivo. Se questo non è un lupo mannaro o il veggente, il mitomane resta un umano normale fino al termine della partita. Altrimenti assume immediatamente il ruolo rispettivamente di lupo mannaro o di veggente, a tutti gli effetti; da questo punto in poi, il mitomane durante la notte apre gli occhi insieme al personaggio di cui ha copiato l’abilità, e ogni decisione circa le azioni da compiere è concordata. Il veggente vede il mitomane-lupo mannaro come un lupo mannaro.",
         "playerDescription": "Parti come Umano. Alla fine della seconda notte scegli un giocatore ancora vivo: se il giocatore scelto è un Lupo Mannaro o il Veggente allora assumi quel ruolo da ora in poi.",
-        "image": "default/mythomaniac.jpg"
+        "image": "default/mythomaniac.png"
     },
     "mage": {
         "num": 0,
@@ -152,7 +152,7 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "Sceglie un giocatore. Qualsiasi azione che bersaglia il giocatore scelto viene riflessa a colui che la esegue.",
         "playerDescription": "Durante la notte scegli un giocatore ancora vivo. Qualsiasi azione che bersaglia il giocatore scelto viene riflessa a colui che la esegue.",
-        "image": "default/mage.jpg"
+        "image": "default/mage.png"
     },
     "infector": {
         "num": 0,
@@ -168,6 +168,6 @@
         "isVisibleForSimilars": false,
         "rulesDescription": "Unge un giocatore. Chi è unto muore automaticamente se pronuncierà le parole \"si\" o \"no\", ungendo i personaggi adiacenti. I personaggi unti smettono di esserlo all'inizio della notte",
         "playerDescription": "Ungi un giocatore. Chi è unto muore automaticamente se pronuncia le parole \"si\" o \"no\", ungendo i personaggi adiacenti. I personaggi unti smettono di esserlo all'inizio della notte.",
-        "image": "default/infector.jpg"
+        "image": "default/infector.png"
     }
 }
